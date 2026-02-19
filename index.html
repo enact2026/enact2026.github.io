@@ -86,16 +86,13 @@
       background: rgba(29,78,216,0.06);
     }
 
-    /* Video placeholders under title */
-    .video-grid{
+    /* Videos under title (STACKED) */
+    .video-stack{
       margin: 18px auto 0;
       max-width: 980px;
-      display:grid;
-      grid-template-columns: 1fr;
+      display:flex;
+      flex-direction:column;
       gap: 14px;
-    }
-    @media (min-width: 920px){
-      .video-grid{ grid-template-columns: 1fr 1fr; }
     }
     .video-card{
       border: 1px solid var(--line);
@@ -111,11 +108,11 @@
       display:block;
       border-bottom: 1px solid var(--line);
     }
-    .video iframe, .video video{
+    .video video{
       width:100%;
       height:100%;
-      border:0;
       display:block;
+      background:#000;
     }
     .vmeta{
       padding: 10px 12px 12px;
@@ -208,68 +205,47 @@
         Executable Neural Action from Video Futures — future-conditioned closed-loop control trained to be robust to imperfect / temporally-misaligned future supervision.
       </div>
       <div class="authors">
-        <!-- edit this line -->
         <strong>Mohammad Khoshnam</strong> · University of Bremen
       </div>
 
       <div class="btnrow">
-        <!-- Replace # with real links later -->
         <a class="btn primary" href="#" target="_blank" rel="noopener">Paper (PDF)</a>
         <a class="btn" href="#" target="_blank" rel="noopener">Code</a>
         <a class="btn" href="#videos">Videos</a>
         <a class="btn" href="#citation">BibTeX</a>
       </div>
 
-      <!-- VIDEOS: directly under project name -->
-      <div id="videos" class="video-grid" aria-label="Video demos">
-        <!-- VIDEO 1 -->
+      <!-- VIDEOS: directly under project name (STACKED) -->
+      <div id="videos" class="video-stack" aria-label="Video demos">
+
+        <!-- TOP VIDEO: demo30_new -->
         <div class="video-card">
           <div class="video">
-            <!-- Replace the iframe with a real <video> or YouTube embed later -->
-            <iframe
-              title="Teaser placeholder"
-              srcdoc="
-                <style>
-                  body{margin:0;display:grid;place-items:center;height:100%;background:#f8fafc;color:#6b7280;font-family:system-ui}
-                  .b{border:1px dashed #cbd5e1;border-radius:14px;padding:16px;text-align:center;max-width:80%}
-                  .t{font-weight:700;color:#111827}
-                </style>
-                <div class=b>
-                  <div class=t>Teaser Video (Placeholder)</div>
-                  <div style='margin-top:6px;font-size:13px'>Put <b>assets/teaser.mp4</b> and embed it here.</div>
-                </div>
-              ">
-            </iframe>
+            <video controls playsinline preload="metadata">
+              <source src="demo30_new.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
           <div class="vmeta">
-            <p class="vtitle">Teaser</p>
-            <p class="vdesc">Short overview clip (policy + future signal).</p>
+            <p class="vtitle">Demo 30</p>
+            <p class="vdesc">Top video: <code>demo30_new.mp4</code></p>
           </div>
         </div>
 
-        <!-- VIDEO 2 -->
+        <!-- BOTTOM VIDEO: Calvin -->
         <div class="video-card">
           <div class="video">
-            <iframe
-              title="Results placeholder"
-              srcdoc="
-                <style>
-                  body{margin:0;display:grid;place-items:center;height:100%;background:#f8fafc;color:#6b7280;font-family:system-ui}
-                  .b{border:1px dashed #cbd5e1;border-radius:14px;padding:16px;text-align:center;max-width:80%}
-                  .t{font-weight:700;color:#111827}
-                </style>
-                <div class=b>
-                  <div class=t>Demo Grid (Placeholder)</div>
-                  <div style='margin-top:6px;font-size:13px'>e.g., CloseDrawer / OpenDoor / Lightbulb</div>
-                </div>
-              ">
-            </iframe>
+            <video controls playsinline preload="metadata">
+              <source src="Calvin.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
           <div class="vmeta">
-            <p class="vtitle">Demos</p>
-            <p class="vdesc">Task clips + comparisons (future vs no-future, GT vs generated).</p>
+            <p class="vtitle">CALVIN</p>
+            <p class="vdesc">Bottom video: <code>Calvin.mp4</code></p>
           </div>
         </div>
+
       </div>
     </header>
 
@@ -284,7 +260,7 @@
           </p>
           <p>
             We propose <strong>Future-Experience Conditioning (FEC)</strong>, which conditions a closed-loop controller on a compact latent representation of a short-horizon
-            executable future while explicitly training for temporal misalignment. :contentReference[oaicite:1]{index=1}
+            executable future while explicitly training for temporal misalignment.
           </p>
         </div>
 
@@ -309,10 +285,10 @@
           (Short, project-page version)
         </p>
         <ul>
-          <li><strong>DT rollout:</strong> generate a robot-free “transparent” articulation clip that specifies object motion. :contentReference[oaicite:2]{index=2}</li>
-          <li><strong>Mask-free inpainting (VDM):</strong> inpaint the robot into the DT clip to produce an executable future without masks at inference. :contentReference[oaicite:3]{index=3}</li>
-          <li><strong>FEC future tokens:</strong> encode future frames, compress with <strong>temporal bins</strong> + a learned projector to a fixed-size conditioning vector. :contentReference[oaicite:4]{index=4}</li>
-          <li><strong>Policy:</strong> a closed-loop controller consumes recent observations + the binned future latent (robust to temporal shift). :contentReference[oaicite:5]{index=5}</li>
+          <li><strong>DT rollout:</strong> generate a robot-free “transparent” articulation clip that specifies object motion.</li>
+          <li><strong>Mask-free inpainting (VDM):</strong> inpaint the robot into the DT clip to produce an executable future without masks at inference.</li>
+          <li><strong>FEC future tokens:</strong> encode future frames, compress with <strong>temporal bins</strong> + a learned projector to a fixed-size conditioning vector.</li>
+          <li><strong>Policy:</strong> a closed-loop controller consumes recent observations + the binned future latent (robust to temporal shift).</li>
         </ul>
       </div>
     </section>
