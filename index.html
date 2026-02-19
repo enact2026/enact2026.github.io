@@ -14,7 +14,6 @@
       --bg:#ffffff;
       --card:#ffffff;
       --accent:#1d4ed8;
-      --accent2:#0ea5e9;
       --shadow: 0 8px 30px rgba(17,24,39,0.08);
     }
     *{ box-sizing:border-box; }
@@ -34,7 +33,6 @@
       padding: 30px 18px 70px;
     }
 
-    /* Top header */
     .hero{
       text-align:center;
       padding: 14px 0 6px;
@@ -57,7 +55,6 @@
       font-size: 14px;
     }
 
-    /* Buttons */
     .btnrow{
       margin-top: 16px;
       display:flex;
@@ -77,10 +74,7 @@
       font-size: 14px;
       color: var(--text);
     }
-    .btn:hover{
-      border-color: #cbd5e1;
-      text-decoration:none;
-    }
+    .btn:hover{ border-color: #cbd5e1; text-decoration:none; }
     .btn.primary{
       border-color: rgba(29,78,216,0.25);
       background: rgba(29,78,216,0.06);
@@ -100,36 +94,48 @@
       overflow:hidden;
       background: var(--card);
       box-shadow: var(--shadow);
+      text-align:left;
     }
-    .video{
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #f8fafc;
-      display:block;
+    .video-wrap{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      background:#f8fafc; /* light background instead of black */
       border-bottom: 1px solid var(--line);
+      overflow:hidden;
     }
-    .video video{
+    .video-wrap video{
       width:100%;
       height:100%;
       display:block;
-      background:#000;
-    }
-    .vmeta{
-      padding: 10px 12px 12px;
-      text-align:left;
-    }
-    .vtitle{
-      font-weight: 700;
-      font-size: 14px;
-      margin: 0;
-    }
-    .vdesc{
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
+      object-fit:cover;
+      background:#f8fafc; /* avoid black flash */
     }
 
-    /* Sections */
+    /* Light fallback overlay if autoplay is blocked */
+    .fallback{
+      position:absolute;
+      inset:0;
+      display:none;
+      place-items:center;
+      background: #f8fafc;
+      color: var(--muted);
+      font-size:14px;
+      padding:16px;
+      text-align:center;
+    }
+    .fallback .box{
+      border:1px dashed #cbd5e1;
+      border-radius:14px;
+      padding:14px 16px;
+      max-width:80%;
+      background:#fff;
+    }
+
+    .vmeta{ padding: 10px 12px 12px; }
+    .vtitle{ font-weight: 700; font-size: 14px; margin: 0; }
+    .vdesc{ margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
     .section{
       margin-top: 22px;
       border-top: 1px solid var(--line);
@@ -160,7 +166,6 @@
     ul{ margin: 10px 0 0 18px; }
     li{ margin: 6px 0; }
 
-    /* Bib */
     pre{
       margin: 0;
       padding: 14px;
@@ -171,7 +176,6 @@
       font-size: 13px;
     }
 
-    /* Footer */
     .footer{
       margin-top: 26px;
       padding-top: 16px;
@@ -198,7 +202,6 @@
 <body>
   <div class="wrap">
 
-    <!-- TOP / CENTER -->
     <header class="hero">
       <h1>ENACT</h1>
       <div class="subtitle">
@@ -218,13 +221,26 @@
       <!-- VIDEOS: directly under project name (STACKED) -->
       <div id="videos" class="video-stack" aria-label="Video demos">
 
-        <!-- TOP VIDEO: demo30_new -->
+        <!-- TOP VIDEO -->
         <div class="video-card">
-          <div class="video">
-            <video controls playsinline preload="metadata">
+          <div class="video-wrap">
+            <video
+              controls
+              playsinline
+              autoplay
+              muted
+              loop
+              preload="metadata"
+            >
               <source src="demo30_new.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+
+            <div class="fallback">
+              <div class="box">
+                Autoplay may be blocked by your browser. Click play to start.
+              </div>
+            </div>
           </div>
           <div class="vmeta">
             <p class="vtitle">Demo 30</p>
@@ -232,24 +248,36 @@
           </div>
         </div>
 
-        <!-- BOTTOM VIDEO: Calvin -->
+        <!-- BOTTOM VIDEO -->
         <div class="video-card">
-          <div class="video">
-            <video controls playsinline preload="metadata">
-              <source src="Calvin.mp4" type="video/mp4" />
+          <div class="video-wrap">
+            <video
+              controls
+              playsinline
+              autoplay
+              muted
+              loop
+              preload="metadata"
+            >
+              <source src="calvin.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+
+            <div class="fallback">
+              <div class="box">
+                Autoplay may be blocked by your browser. Click play to start.
+              </div>
+            </div>
           </div>
           <div class="vmeta">
             <p class="vtitle">CALVIN</p>
-            <p class="vdesc">Bottom video: <code>Calvin.mp4</code></p>
+            <p class="vdesc">Bottom video: <code>calvin.mp4</code></p>
           </div>
         </div>
 
       </div>
     </header>
 
-    <!-- OVERVIEW + QUICK FACTS -->
     <section class="section" id="overview">
       <div class="two-col">
         <div class="card">
@@ -277,13 +305,10 @@
       </div>
     </section>
 
-    <!-- METHOD -->
     <section class="section" id="method">
       <div class="card">
         <h2>Method</h2>
-        <p class="muted" style="margin-top:0">
-          (Short, project-page version)
-        </p>
+        <p class="muted" style="margin-top:0">(Short, project-page version)</p>
         <ul>
           <li><strong>DT rollout:</strong> generate a robot-free “transparent” articulation clip that specifies object motion.</li>
           <li><strong>Mask-free inpainting (VDM):</strong> inpaint the robot into the DT clip to produce an executable future without masks at inference.</li>
@@ -293,7 +318,6 @@
       </div>
     </section>
 
-    <!-- RESULTS -->
     <section class="section" id="results">
       <div class="card">
         <h2>Results</h2>
@@ -308,7 +332,6 @@
       </div>
     </section>
 
-    <!-- CITATION -->
     <section class="section" id="citation">
       <div class="card">
         <h2>Citation</h2>
@@ -330,6 +353,21 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // If autoplay is blocked, show the light fallback overlay.
+    // (Browsers usually allow autoplay only when muted; we already set muted.)
+    const videos = document.querySelectorAll("video");
+    videos.forEach((v) => {
+      const fb = v.parentElement.querySelector(".fallback");
+      const tryPlay = v.play();
+      if (tryPlay !== undefined) {
+        tryPlay.then(() => {
+          if (fb) fb.style.display = "none";
+        }).catch(() => {
+          if (fb) fb.style.display = "grid";
+        });
+      }
+    });
   </script>
 </body>
 </html>
