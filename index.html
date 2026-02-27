@@ -80,7 +80,7 @@
       background: rgba(29,78,216,0.06);
     }
 
-    /* Videos under title (stacked) */
+    /* Videos (stacked) */
     .video-stack{
       margin: 18px auto 0;
       max-width: 980px;
@@ -97,8 +97,7 @@
       text-align:left;
     }
 
-    /* IMPORTANT: do NOT force aspect ratio.
-       Let the <video> decide its natural height based on its metadata. */
+    /* Let the <video> decide its natural height based on metadata. */
     .video-wrap{
       width:100%;
       background:#f8fafc;
@@ -107,9 +106,9 @@
     }
     .video-wrap video{
       width:100%;
-      height:auto;          /* keep original aspect ratio */
+      height:auto;
       display:block;
-      background:#f8fafc;   /* light background while loading */
+      background:#f8fafc;
     }
 
     /* Light fallback overlay if autoplay is blocked */
@@ -208,32 +207,27 @@
       <div class="subtitle">
         Executable Neural Action from Video Futures — future-conditioned closed-loop control trained to be robust to imperfect / temporally-misaligned future supervision.
       </div>
+
+      <!-- authors next to each other; names only -->
       <div class="authors">
-        <strong>Mohammad Khoshnazar</strong> · University of Bremen<br />, <strong>Andrew Melnik</strong> · University of Bremen<br />
-        
+        <strong>Mohammad Khoshnazar</strong> · <strong>Andrew Melnik</strong>
       </div>
 
       <div class="btnrow">
         <a class="btn primary" href="#" target="_blank" rel="noopener">Paper (PDF)</a>
         <a class="btn" href="#" target="_blank" rel="noopener">Code</a>
         <a class="btn" href="#videos">Videos</a>
+        <a class="btn" href="#midvideos">More Videos</a>
         <a class="btn" href="#citation">BibTeX</a>
       </div>
 
-      <!-- VIDEOS: directly under project name (STACKED) -->
-      <div id="videos" class="video-stack" aria-label="Video demos">
+      <!-- TOP VIDEOS: directly under title (STACKED) -->
+      <div id="videos" class="video-stack" aria-label="Top video demos">
 
         <!-- TOP VIDEO -->
         <div class="video-card">
           <div class="video-wrap">
-            <video
-              controls
-              playsinline
-              autoplay
-              muted
-              loop
-              preload="metadata"
-            >
+            <video controls playsinline autoplay muted loop preload="metadata">
               <source src="demo30_new.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -248,17 +242,10 @@
           </div>
         </div>
 
-        <!-- BOTTOM VIDEO -->
+        <!-- SECOND VIDEO -->
         <div class="video-card">
           <div class="video-wrap">
-            <video
-              controls
-              playsinline
-              autoplay
-              muted
-              loop
-              preload="metadata"
-            >
+            <video controls playsinline autoplay muted loop preload="metadata">
               <source src="calvin.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -269,7 +256,7 @@
           </div>
           <div class="vmeta">
             <p class="vtitle">CALVIN</p>
-            <p class="vdesc">Bottom video: <code>calvin.mp4</code></p>
+            <p class="vdesc">Second video: <code>calvin.mp4</code></p>
           </div>
         </div>
 
@@ -299,6 +286,51 @@
           <p class="muted" style="margin-top:12px">
             Replace these bullets once your final experiments are ready.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MIDDLE VIDEOS: stacked, centered like the others -->
+    <section class="section" id="midvideos">
+      <div class="card" style="padding:0; border:none; box-shadow:none; background:transparent;">
+        <div class="video-stack" aria-label="Middle video demos">
+
+          <!-- MIDDLE VIDEO 1 -->
+          <div class="video-card">
+            <div class="video-wrap">
+              <video controls playsinline autoplay muted loop preload="metadata">
+                <source src="turn_on_led.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <div class="fallback">
+                <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+              </div>
+            </div>
+            <div class="vmeta">
+              <p class="vtitle">Turn On LED</p>
+              <p class="vdesc">Middle video: <code>turn_on_led.mp4</code></p>
+            </div>
+          </div>
+
+          <!-- MIDDLE VIDEO 2 -->
+          <div class="video-card">
+            <div class="video-wrap">
+              <video controls playsinline autoplay muted loop preload="metadata">
+                <source src="turn_on_lightbulb.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <div class="fallback">
+                <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+              </div>
+            </div>
+            <div class="vmeta">
+              <p class="vtitle">Turn On Lightbulb</p>
+              <p class="vdesc">Middle video: <code>turn_on_lightbulb.mp4</code></p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
