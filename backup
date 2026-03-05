@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ENACT</title>
+  <meta name="description" content="ENACT: Executable Neural Action from Video Futures" />
+
+  <style>
+    :root{
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --bg:#ffffff;
+      --card:#ffffff;
+      --accent:#1d4ed8;
+      --shadow: 0 8px 30px rgba(17,24,39,0.08);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.55;
+    }
+    a{ color: var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 30px 18px 70px;
+    }
+
+    .hero{
+      text-align:center;
+      padding: 14px 0 6px;
+    }
+    h1{
+      margin: 6px 0 6px;
+      font-size: 44px;
+      letter-spacing: 0.2px;
+      font-weight: 800;
+    }
+    .subtitle{
+      margin: 0 auto;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .authors{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .btnrow{
+      margin-top: 16px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 1px 0 rgba(17,24,39,0.03);
+      font-size: 14px;
+      color: var(--text);
+    }
+    .btn:hover{ border-color: #cbd5e1; text-decoration:none; }
+    .btn.primary{
+      border-color: rgba(29,78,216,0.25);
+      background: rgba(29,78,216,0.06);
+    }
+
+    /* Videos (stacked) */
+    .video-stack{
+      margin: 18px auto 0;
+      max-width: 980px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .video-card{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow:hidden;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      text-align:left;
+    }
+
+    /* Let the <video> decide its natural height based on metadata. */
+    .video-wrap{
+      width:100%;
+      background:#f8fafc;
+      border-bottom: 1px solid var(--line);
+      position:relative;
+    }
+    .video-wrap video{
+      width:100%;
+      height:auto;
+      display:block;
+      background:#f8fafc;
+    }
+
+    /* Light fallback overlay if autoplay is blocked */
+    .fallback{
+      position:absolute;
+      inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(248,250,252,0.92);
+      color: var(--muted);
+      font-size:14px;
+      padding:16px;
+      text-align:center;
+    }
+    .fallback .box{
+      border:1px dashed #cbd5e1;
+      border-radius:14px;
+      padding:14px 16px;
+      max-width:80%;
+      background:#fff;
+      box-shadow: 0 6px 22px rgba(17,24,39,0.08);
+    }
+
+    .vmeta{ padding: 10px 12px 12px; }
+    .vtitle{ font-weight: 700; font-size: 14px; margin: 0; }
+    .vdesc{ margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .section{
+      margin-top: 22px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items:start;
+    }
+    @media (min-width: 920px){
+      .two-col{ grid-template-columns: 1.3fr 0.7fr; }
+    }
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .muted{ color: var(--muted); }
+    ul{ margin: 10px 0 0 18px; }
+    li{ margin: 6px 0; }
+
+    pre{
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #f8fafc;
+      overflow:auto;
+      font-size: 13px;
+    }
+
+    .footer{
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <h1>ENACT</h1>
+      <div class="subtitle">
+        Executable Neural Action from Video Futures — future-conditioned closed-loop control trained to be robust to imperfect / temporally-misaligned future supervision.
+      </div>
+
+      <!-- authors next to each other; names only -->
+      <div class="authors">
+        <strong>Mohammad Khoshnazar</strong> · <strong>Andrew Melnik</strong>
+      </div>
+
+      <div class="btnrow">
+        <a class="btn primary" href="#" target="_blank" rel="noopener">Paper (PDF)</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">Code</a>
+        <a class="btn" href="#videos">Videos</a>
+        <a class="btn" href="#midvideos">More Videos</a>
+        <a class="btn" href="#citation">BibTeX</a>
+      </div>
+
+      <!-- TOP VIDEOS: directly under title (STACKED) -->
+      <div id="videos" class="video-stack" aria-label="Top video demos">
+
+        <!-- TOP VIDEO -->
+        <div class="video-card">
+          <div class="video-wrap">
+            <video controls playsinline autoplay muted loop preload="metadata">
+              <source src="demo30_close_drawer.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            <div class="fallback">
+              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+            </div>
+          </div>
+          <div class="vmeta">
+            <p class="vtitle">Demo 30</p>
+            <p class="vdesc">Top video: <code>demo30_close_drawer.mp4</code></p>
+          </div>
+        </div>
+
+        <!-- SECOND VIDEO -->
+        <div class="video-card">
+          <div class="video-wrap">
+            <video controls playsinline autoplay muted loop preload="metadata">
+              <source src="open_drawe_best.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            <div class="fallback">
+              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+            </div>
+          </div>
+          <div class="vmeta">
+            <p class="vtitle">CALVIN</p>
+            <p class="vdesc">Second video: <code>open_drawe_best.mp4</code></p>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <section class="section" id="overview">
+      <div class="two-col">
+        <div class="card">
+          <h2>Overview</h2>
+          <p>
+            ENACT studies <strong>control under imperfect future supervision</strong>: a policy can be trained with a future visual signal from demonstrations,
+            but at deployment the future must come from a generative model and may be <em>slightly mismatched or time-shifted</em>.
+          </p>
+          <p>
+            We propose <strong>Future-Experience Conditioning (FEC)</strong>, which conditions a closed-loop controller on a compact latent representation of a short-horizon
+            executable future while explicitly training for temporal misalignment.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Quick Facts</h2>
+          <div class="pill">Future-conditioned control</div>
+          <div class="pill">Digital-twin articulation rollout</div>
+          <div class="pill">Mask-free video diffusion inpainting</div>
+          <div class="pill">Temporal-bin future latent</div>
+          <p class="muted" style="margin-top:12px">
+            Still TO DO
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MIDDLE VIDEOS: stacked, centered like the others -->
+    <section class="section" id="midvideos">
+      <div class="card" style="padding:0; border:none; box-shadow:none; background:transparent;">
+        <div class="video-stack" aria-label="Middle video demos">
+
+          <!-- MIDDLE VIDEO 1 -->
+          <div class="video-card">
+            <div class="video-wrap">
+              <video controls playsinline autoplay muted loop preload="metadata">
+                <source src="push_into_drawer_best.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <div class="fallback">
+                <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+              </div>
+            </div>
+            <div class="vmeta">
+              <p class="vtitle">Push into drawer</p>
+              <p class="vdesc">Middle video: <code>push_into_drawer_best.mp4</code></p>
+            </div>
+          </div>
+
+          <!-- MIDDLE VIDEO 2 -->
+          <div class="video-card">
+            <div class="video-wrap">
+              <video controls playsinline autoplay muted loop preload="metadata">
+                <source src="turn_on_lightbulb.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <div class="fallback">
+                <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
+              </div>
+            </div>
+            <div class="vmeta">
+              <p class="vtitle">Turn On Lightbulb</p>
+              <p class="vdesc">Middle video: <code>turn_on_lightbulb.mp4</code></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="card">
+        <h2>Method</h2>
+        <p class="muted" style="margin-top:0">(Short, project-page version)</p>
+        <ul>
+          <li><strong>DT rollout:</strong> generate a robot-free “transparent” articulation clip that specifies object motion.</li>
+          <li><strong>Mask-free inpainting (VDM):</strong> inpaint the robot into the DT clip to produce an executable future without masks at inference.</li>
+          <li><strong>FEC future tokens:</strong> encode future frames, compress with <strong>temporal bins</strong> + a learned projector to a fixed-size conditioning vector.</li>
+          <li><strong>Policy:</strong> a closed-loop controller consumes recent observations + the binned future latent (robust to temporal shift).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="card">
+        <h2>Results</h2>
+        <p class="muted">
+          final numbers should be here (success rate, robustness curve vs temporal shift, GT > generated swap).
+        </p>
+        <ul>
+          <li><strong>Success:</strong> XX% on Task A, YY% on Task B</li>
+          <li><strong>Robustness:</strong> performance vs temporal shift (Δ) curve</li>
+          <li><strong>Ablations:</strong> no-future vs GT-future vs generated-future</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="citation">
+      <div class="card">
+        <h2>Citation</h2>
+        <pre>@misc{enact2026,
+  title   = {ENACT: Executable Neural Action from Video Futures},
+  author  = {Khoshnazar, Mohammad and Melnik, Andrew},
+  year    = {2026},
+  url     = {https://enact2026.github.io/}
+}</pre>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="y"></span> ENACT</div>
+      <div class="muted">Built with GitHub Pages</div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // If autoplay is blocked, show the fallback overlay.
+    const videos = document.querySelectorAll("video");
+    videos.forEach((v) => {
+      const fb = v.parentElement.querySelector(".fallback");
+      const p = v.play();
+      if (p !== undefined) {
+        p.then(() => { if (fb) fb.style.display = "none"; })
+         .catch(() => { if (fb) fb.style.display = "grid"; });
+      }
+    });
+  </script>
+</body>
+</html>
