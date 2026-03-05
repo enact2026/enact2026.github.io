@@ -3,38 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ENACT</title>
+  <title>ENACT: Executable Neural Action from Video Futures</title>
   <meta name="description" content="ENACT: Executable Neural Action from Video Futures" />
 
   <style>
     :root{
       --text:#0f172a;
-      --muted:#64748b;
+      --muted:#475569;
       --line:#e2e8f0;
       --bg:#ffffff;
-      --card:#ffffff;
       --accent:#2563eb;
-      --shadow: 0 8px 28px rgba(2,6,23,0.08);
-      --soft: #f8fafc;
+      --soft:#f8fafc;
     }
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
     body{
       margin:0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      line-height: 1.6;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      line-height:1.55;
     }
-    a{ color: var(--accent); text-decoration:none; }
+    a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
-    code{
-      background: #eef2ff;
-      border: 1px solid #e0e7ff;
-      padding: 1px 6px;
-      border-radius: 999px;
-      font-size: 0.92em;
-    }
 
     .wrap{
       max-width: 980px;
@@ -42,145 +32,117 @@
       padding: 34px 18px 70px;
     }
 
-    /* Header (SayPlan-like: simple, centered) */
-    .hero{
+    /* SayPlan-like: centered header, minimal styling */
+    header{
       text-align:center;
-      padding: 6px 0 10px;
+      margin-bottom: 18px;
     }
     h1{
       margin: 0 0 10px;
-      font-size: 40px;
-      letter-spacing: 0.2px;
-      font-weight: 850;
-    }
-    .tagline{
-      margin: 0 auto 10px;
-      max-width: 920px;
-      color: var(--muted);
-      font-size: 16px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: .2px;
     }
     .authors{
-      margin: 6px 0 8px;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .affil{
+      margin: 0 0 8px;
       color: var(--muted);
       font-size: 14px;
     }
     .links{
-      margin-top: 10px;
+      margin: 8px 0 10px;
       display:flex;
       justify-content:center;
-      gap:14px;
+      gap:16px;
       flex-wrap:wrap;
       font-size: 14px;
       color: var(--muted);
     }
     .links a{ font-weight: 600; }
-    .note{
-      margin-top: 12px;
+
+    .pin{
+      margin-top: 6px;
       color: var(--muted);
-      font-size: 13.5px;
+      font-size: 14px;
     }
 
-    /* Sections */
-    .section{
-      margin-top: 22px;
+    .claim{
+      margin: 14px auto 0;
+      max-width: 900px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Sections (SayPlan style: just headings + content) */
+    h2{
+      margin: 26px 0 10px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
-      text-align:left;
-    }
-    .section h2{
-      margin: 0 0 10px;
       font-size: 22px;
-      font-weight: 850;
-      letter-spacing: 0.2px;
+      font-weight: 800;
     }
-    .section h3{
+    h3{
       margin: 14px 0 8px;
       font-size: 16px;
       font-weight: 800;
     }
     p{ margin: 10px 0; }
-    ul{ margin: 10px 0 0 18px; }
+    ul{ margin: 8px 0 0 18px; }
     li{ margin: 6px 0; }
 
-    /* Card blocks */
-    .card{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    .muted{ color: var(--muted); }
-
-    /* Videos (stacked, like your original, but inside SayPlan-ish layout) */
-    .video-stack{
-      margin: 10px auto 0;
-      max-width: 980px;
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
-    .video-card{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow:hidden;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      text-align:left;
-    }
-    .video-wrap{
-      width:100%;
-      background: var(--soft);
-      border-bottom: 1px solid var(--line);
-      position:relative;
-    }
-    .video-wrap video{
-      width:100%;
-      height:auto;
-      display:block;
-      background: var(--soft);
-    }
-    .fallback{
-      position:absolute;
-      inset:0;
-      display:none;
-      place-items:center;
-      background: rgba(248,250,252,0.92);
-      color: var(--muted);
-      font-size:14px;
-      padding:16px;
-      text-align:center;
-    }
-    .fallback .box{
-      border:1px dashed #cbd5e1;
-      border-radius:14px;
-      padding:14px 16px;
-      max-width:80%;
-      background:#fff;
-      box-shadow: 0 6px 22px rgba(17,24,39,0.08);
-    }
-    .vmeta{ padding: 10px 12px 12px; }
-    .vtitle{ font-weight: 800; font-size: 14px; margin: 0; }
-    .vdesc{ margin: 4px 0 0; color: var(--muted); font-size: 13px; }
-
-    /* Optional figure placeholder (Approach image like SayPlan) */
+    /* Figure */
     .figure{
-      margin-top: 10px;
+      margin: 10px 0 8px;
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 14px;
       overflow:hidden;
       background: var(--soft);
-    }
-    .figure .ph{
-      padding: 18px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align:center;
     }
     .figure img{
       width:100%;
       height:auto;
       display:block;
+    }
+    .figcap{
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    /* Video block (keep simple, but reliable) */
+    .video{
+      margin: 14px 0 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+      background: var(--soft);
+    }
+    .video video{
+      width:100%;
+      height:auto;
+      display:block;
+      background: var(--soft);
+    }
+    .vmeta{
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background:#fff;
+    }
+    code{
+      background:#eef2ff;
+      border:1px solid #e0e7ff;
+      padding: 1px 6px;
+      border-radius: 999px;
+      font-size: .92em;
     }
 
     pre{
@@ -205,255 +167,143 @@
       gap: 10px;
       flex-wrap:wrap;
     }
-
-    /* Small top anchor row */
-    .toc{
-      margin: 14px auto 0;
-      display:flex;
-      justify-content:center;
-      gap: 10px 14px;
-      flex-wrap:wrap;
-      font-size: 13.5px;
-      color: var(--muted);
-    }
-    .toc a{
-      padding: 6px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      box-shadow: 0 1px 0 rgba(2,6,23,0.03);
-    }
-    .toc a:hover{ text-decoration:none; border-color:#cbd5e1; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <header class="hero" id="top">
+    <header>
       <h1>ENACT: Executable Neural Action from Video Futures</h1>
-
-      <p class="tagline">
-        Future-conditioned closed-loop control trained to be robust to imperfect / temporally-misaligned future supervision.
-      </p>
 
       <div class="authors">
         <strong>Mohammad Khoshnazar</strong> · <strong>Andrew Melnik</strong>
       </div>
 
+      <!-- Optional: add affiliations like SayPlan (edit/remove as you want) -->
+      <div class="affil">
+        University of Bremen · Institute of Artificial Intelligence
+      </div>
+
       <div class="links">
         <a href="#" target="_blank" rel="noopener">arXiv</a>
-        <a href="#" target="_blank" rel="noopener">Paper (PDF)</a>
+        <a href="#" target="_blank" rel="noopener">Paper</a>
         <a href="#" target="_blank" rel="noopener">Code</a>
-        <a href="#videos">Videos</a>
-      </div>
-
-      <!-- small “SayPlan-like” pill TOC -->
-      <div class="toc" aria-label="Page sections">
-        <a href="#abstract">Abstract</a>
-        <a href="#approach">Approach</a>
-        <a href="#videos">Videos</a>
         <a href="#results">Results</a>
-        <a href="#bibtex">BibTeX</a>
       </div>
 
-      <!-- Optional: a short note line (remove if you don’t want it) -->
-      <div class="note muted">
-        <!-- Example: 📌 ICRA 2026 (Under Review) -->
+      <!-- Optional pinned line (edit/remove) -->
+      <div class="pin">📌 ICRA 2026 (Under Review)</div>
+
+      <div class="claim">
+        ENACT studies control under imperfect future supervision via Future-Experience Conditioning (FEC):
+        DT-guided mask-free video diffusion futures + a future-conditioned Streaming Flow Policy robust to temporal misalignment.
+      </div>
+
+      <!-- TOP VIDEO (like SayPlan: show one key demo early) -->
+      <div class="video" style="margin-top:16px;">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="open_drawe_best.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">
+          Top video (Open Drawer): <code>open_drawe_best.mp4</code>
+        </div>
       </div>
     </header>
 
-    <!-- Abstract -->
-    <section class="section" id="abstract">
-      <h2>Abstract</h2>
-      <div class="card">
-        <!-- Replace this with your *paper abstract* text verbatim -->
-        <p>
-          ENACT studies <strong>control under imperfect future supervision</strong>: a policy can be trained with a future visual signal from demonstrations,
-          but at deployment the future must come from a generative model and may be <em>slightly mismatched or time-shifted</em>.
-          We propose <strong>Future-Experience Conditioning (FEC)</strong>, which conditions a closed-loop controller on a compact latent representation of a short-horizon
-          executable future while explicitly training for temporal misalignment.
-        </p>
-        <p class="muted" style="margin-bottom:0">
-          (Paste your final abstract here.)
-        </p>
+    <h2 id="abstract">Abstract</h2>
+    <!-- PAPER-VERBATIM ABSTRACT (you pasted this; kept the same) -->
+    <p>
+      Robotic manipulation policies are typically reactive (conditioning only on recent observations) or depend on explicit planning and state estimation. Many household tasks, however, rely on anticipating near-future events such as contact timing and articulated motion. We study <em>control under imperfect future supervision</em>: policies are trained with a future signal available from demonstrations, but at inference time we don't have access to ground-truth information so the future data must be provided by a generative model and may be time-shifted or slightly mismatched. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a learning formulation that conditions closed-loop control on a compact latent representation of a short-horizon <em>executable</em> visual future while explicitly training for temporal misalignment. We instantiate FEC with (i) a robot-free digital-twin (DT) articulation rollout that specifies target object motion, (ii) a mask-free video diffusion model (VDM) that inpaints the robot into the DT video to produce a task-consistent future clip without requiring segmentation at inference, and (iii) a Streaming Flow Policy (SFP) that consumes recent observations and an aligned, temporally-binned future latent. We evaluated our framework on Robocasa and Calvin benchmark to prove its capability on different scene and environment.(To make sure) Experiments evaluate FEC on long-horizon manipulation and quantify robustness to future timing mismatch as well as the train and test swap from ground-truth futures to generated futures.
+    </p>
+
+    <h2 id="approach">Approach</h2>
+
+    <!-- Main overview figure (like SayPlan: one big image near top of Approach) -->
+    <div class="figure">
+      <img src="img/main2.png" alt="ENACT overview" />
+      <div class="figcap">
+        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → policy conditioning (robust to temporal shift).
       </div>
-    </section>
+    </div>
 
-    <!-- Approach -->
-    <section class="section" id="approach">
-      <h2>Approach</h2>
+    <!-- SayPlan-style: short motivation paragraph + named subsections -->
+    <p>
+      We study <em>control under imperfect future supervision</em>, where the future used during policy training (from demonstrations) differs from the future available at deployment (generated) and may be temporally misaligned.
+      ENACT produces a short-horizon <em>future experience</em> clip and conditions a closed-loop policy on a compact latent representation of that future while explicitly training for temporal mismatch.
+    </p>
 
-      <!-- Optional figure (like SayPlan). Put your pipeline figure here if you want. -->
-      <div class="figure" aria-label="Approach figure">
-        <!-- If you have an image, replace the placeholder with: <img src="fig_enact_overview.png" alt="ENACT overview" /> -->
-        <div class="ph">
-          Place your method figure here (optional). Example: <code>fig_enact_overview.png</code>
-        </div>
-      </div>
+    <h3>Digital Twin (DT) rollout (robot-free)</h3>
+    <p>
+      We obtain the future clip by rolling out a robot-free digital twin (DT) for the intended object motion. The DT video constrains the correct articulation dynamics and camera viewpoint without requiring robot kinematics.
+    </p>
 
-      <div class="card" style="margin-top:14px;">
-        <!-- Replace with your paper’s “Approach” text in website form -->
-        <p>
-          We instantiate FEC using a robot-free <strong>digital twin (DT)</strong> articulation video that specifies object motion without requiring robot kinematics,
-          and a <strong>mask-free</strong> video diffusion model (VDM) that inpaints a robot into the DT rollout to produce a task-consistent future observation clip.
-          The generated clip is encoded into latent vectors and fed to a policy alongside recent observations.
-        </p>
+    <h3>Mask-free video diffusion model (VDM) for robot inpainting</h3>
+    <p>
+      A mask-free video diffusion model inpaints the robot into the DT rollout to produce a task-consistent future clip without requiring robot segmentation at inference time.
+    </p>
 
-        <h3>1) Digital-twin rollout (robot-free)</h3>
-        <ul>
-          <li>Render a short-horizon “future” clip that captures object/articulation evolution without the robot.</li>
-          <li>This clip represents the task progress signal (what should happen), but not the robot motion (how).</li>
-        </ul>
+    <h3>Future-Experience Conditioning (FEC) tokens (temporal bins + projector)</h3>
+    <p>
+      We encode the future clip into per-frame embeddings, select a short future window, compress it into coarse temporal bins, and project it to a fixed-dimensional conditioning vector.
+      During policy training, we apply temporal shift augmentation to make the controller robust to imperfect / time-shifted future supervision.
+    </p>
 
-        <h3>2) Mask-free robot inpainting (VDM)</h3>
-        <ul>
-          <li>Inpaint the robot into the DT future to obtain a <em>robot-ready</em> future observation sequence.</li>
-          <li>No segmentation masks needed at inference (mask-free conditioning).</li>
-        </ul>
+    <h3>Future-conditioned Streaming Flow Policy (SFP)</h3>
+    <p>
+      The policy consumes recent observations together with the binned future latent and outputs continuous actions. We report ablations that swap the future source at test time (ground-truth vs generated) and quantify robustness to timing mismatch.
+    </p>
 
-        <h3>3) Future tokens (temporal binning)</h3>
-        <ul>
-          <li>Encode the generated future frames into latent tokens.</li>
-          <li>Compress them with <strong>temporal bins</strong> + a learned projector to a fixed-size conditioning vector.</li>
-        </ul>
+    <!-- Your requested editable text spot -->
+    <p style="color:#475569;">
+      <strong>Custom text (edit me):</strong> Put your short 1–2 sentence takeaway here (e.g., “ENACT improves contact timing and robustness under temporal misalignment.”).
+    </p>
 
-        <h3>4) Closed-loop policy (robust to temporal shift)</h3>
-        <ul>
-          <li>Policy input = recent observations + the binned future latent.</li>
-          <li>Train with explicit temporal shift augmentation so the controller tolerates misalignment at deployment.</li>
-        </ul>
+    <h2 id="results">Results</h2>
 
-        <!-- PLACE FOR YOUR CUSTOM TEXT (you asked to “put a place that I can put a text there”) -->
-        <p class="muted" style="margin-top:14px; margin-bottom:0;">
-          <strong>Custom note (editable):</strong> Put your short takeaway / contribution sentence here.
-        </p>
-      </div>
-    </section>
+    <!-- Keep your other videos here (stacked, simple) -->
+    <div class="video">
+      <video controls playsinline autoplay muted loop preload="metadata">
+        <source src="demo30_close_drawer.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="vmeta">Close Drawer: <code>demo30_close_drawer.mp4</code></div>
+    </div>
 
-    <!-- Videos -->
-    <section class="section" id="videos">
-      <h2>Videos</h2>
+    <div class="video">
+      <video controls playsinline autoplay muted loop preload="metadata">
+        <source src="push_into_drawer_best.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="vmeta">Push Into Drawer: <code>push_into_drawer_best.mp4</code></div>
+    </div>
 
-      <!-- Keep your videos exactly (stacked) -->
-      <div class="video-stack" aria-label="Video demos">
+    <div class="video">
+      <video controls playsinline autoplay muted loop preload="metadata">
+        <source src="turn_on_lightbulb.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="vmeta">Turn On Lightbulb: <code>turn_on_lightbulb.mp4</code></div>
+    </div>
 
-        <div class="video-card">
-          <div class="video-wrap">
-            <video controls playsinline autoplay muted loop preload="metadata">
-              <source src="demo30_close_drawer.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="fallback">
-              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
-            </div>
-          </div>
-          <div class="vmeta">
-            <p class="vtitle">Demo 30 — Close Drawer</p>
-            <p class="vdesc">Video: <code>demo30_close_drawer.mp4</code></p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-wrap">
-            <video controls playsinline autoplay muted loop preload="metadata">
-              <source src="open_drawe_best.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="fallback">
-              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
-            </div>
-          </div>
-          <div class="vmeta">
-            <p class="vtitle">CALVIN — Open Drawer</p>
-            <p class="vdesc">Video: <code>open_drawe_best.mp4</code></p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-wrap">
-            <video controls playsinline autoplay muted loop preload="metadata">
-              <source src="push_into_drawer_best.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="fallback">
-              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
-            </div>
-          </div>
-          <div class="vmeta">
-            <p class="vtitle">CALVIN — Push Into Drawer</p>
-            <p class="vdesc">Video: <code>push_into_drawer_best.mp4</code></p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-wrap">
-            <video controls playsinline autoplay muted loop preload="metadata">
-              <source src="turn_on_lightbulb.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="fallback">
-              <div class="box">Autoplay may be blocked by your browser. Click play to start.</div>
-            </div>
-          </div>
-          <div class="vmeta">
-            <p class="vtitle">CALVIN — Turn On Lightbulb</p>
-            <p class="vdesc">Video: <code>turn_on_lightbulb.mp4</code></p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Results -->
-    <section class="section" id="results">
-      <h2>Results</h2>
-      <div class="card">
-        <p class="muted" style="margin-top:0;">
-          Replace these with your final numbers/plots (SayPlan style: short, readable).
-        </p>
-        <ul>
-          <li><strong>Success:</strong> XX% on Task A, YY% on Task B</li>
-          <li><strong>Robustness:</strong> performance vs temporal shift (Δ) curve</li>
-          <li><strong>Ablations:</strong> no-future vs GT-future vs generated-future</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BibTeX -->
-    <section class="section" id="bibtex">
-      <h2>BibTeX</h2>
-      <div class="card">
-        <pre>@misc{enact2026,
+    <h2 id="bibtex">BibTeX</h2>
+    <pre>@misc{enact2026,
   title   = {ENACT: Executable Neural Action from Video Futures},
   author  = {Khoshnazar, Mohammad and Melnik, Andrew},
   year    = {2026},
   url     = {https://enact2026.github.io/}
 }</pre>
-      </div>
-    </section>
 
     <div class="footer">
       <div>© <span id="y"></span> ENACT</div>
-      <div class="muted">Built with GitHub Pages</div>
+      <div>Built with GitHub Pages</div>
     </div>
 
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-
-    // If autoplay is blocked, show the fallback overlay.
-    const videos = document.querySelectorAll("video");
-    videos.forEach((v) => {
-      const wrap = v.closest(".video-wrap");
-      const fb = wrap ? wrap.querySelector(".fallback") : null;
-      const p = v.play();
-      if (p !== undefined) {
-        p.then(() => { if (fb) fb.style.display = "none"; })
-         .catch(() => { if (fb) fb.style.display = "grid"; });
-      }
-    });
   </script>
 </body>
 </html>
