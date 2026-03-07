@@ -14,15 +14,22 @@
       --bg:#ffffff;
       --accent:#2563eb;
       --soft:#f8fafc;
+      --soft2:#eef4ff;
+      --green:#16a34a;
+      --orange:#ea580c;
+      --purple:#7c3aed;
     }
+
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      line-height:1.55;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.6;
     }
+
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
@@ -32,27 +39,30 @@
       padding: 34px 18px 70px;
     }
 
-    /* SayPlan-like: centered header, minimal styling */
     header{
       text-align:center;
       margin-bottom: 18px;
     }
+
     h1{
       margin: 0 0 10px;
       font-size: 30px;
       font-weight: 800;
       letter-spacing: .2px;
     }
+
     .authors{
       margin: 0 0 6px;
       color: var(--muted);
       font-size: 15px;
     }
+
     .affil{
       margin: 0 0 8px;
       color: var(--muted);
       font-size: 14px;
     }
+
     .links{
       margin: 8px 0 10px;
       display:flex;
@@ -62,6 +72,7 @@
       font-size: 14px;
       color: var(--muted);
     }
+
     .links a{ font-weight: 600; }
 
     .pin{
@@ -78,7 +89,6 @@
       color: var(--text);
     }
 
-    /* Sections (SayPlan style: just headings + content) */
     h2{
       margin: 26px 0 10px;
       padding-top: 18px;
@@ -86,16 +96,17 @@
       font-size: 22px;
       font-weight: 800;
     }
+
     h3{
       margin: 14px 0 8px;
       font-size: 16px;
       font-weight: 800;
     }
+
     p{ margin: 10px 0; }
     ul{ margin: 8px 0 0 18px; }
     li{ margin: 6px 0; }
 
-    /* Figure */
     .figure{
       margin: 10px 0 8px;
       border: 1px solid var(--line);
@@ -103,11 +114,13 @@
       overflow:hidden;
       background: var(--soft);
     }
+
     .figure img{
       width:100%;
       height:auto;
       display:block;
     }
+
     .figcap{
       padding: 10px 12px;
       font-size: 13px;
@@ -116,7 +129,6 @@
       background: #fff;
     }
 
-    /* Video block (keep simple, but reliable) */
     .video{
       margin: 14px 0 0;
       border: 1px solid var(--line);
@@ -124,12 +136,14 @@
       overflow:hidden;
       background: var(--soft);
     }
+
     .video video{
       width:100%;
       height:auto;
       display:block;
       background: var(--soft);
     }
+
     .vmeta{
       padding: 10px 12px;
       font-size: 13px;
@@ -137,6 +151,7 @@
       border-top: 1px solid var(--line);
       background:#fff;
     }
+
     code{
       background:#eef2ff;
       border:1px solid #e0e7ff;
@@ -156,6 +171,163 @@
       line-height: 1.45;
     }
 
+    /* Animated pipeline block */
+    .anim-wrap{
+      margin: 18px 0 10px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fbfdff 0%, #f8fbff 100%);
+      overflow:hidden;
+    }
+
+    .anim-head{
+      padding: 14px 16px 10px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+
+    .anim-head h3{
+      margin:0 0 4px;
+      font-size:17px;
+    }
+
+    .anim-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .anim-inner{
+      padding: 14px 10px 8px;
+    }
+
+    .pipeline-svg{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .step-box{
+      fill:#ffffff;
+      stroke:#cbd5e1;
+      stroke-width:2;
+      rx:18;
+      ry:18;
+      filter: drop-shadow(0 6px 18px rgba(15,23,42,0.06));
+      transition: fill .25s ease, stroke .25s ease, transform .25s ease;
+    }
+
+    .step-label{
+      font-size:16px;
+      font-weight:700;
+      fill:#0f172a;
+    }
+
+    .step-sub{
+      font-size:12px;
+      fill:#64748b;
+    }
+
+    .step-icon{
+      font-size:24px;
+    }
+
+    .step-group{
+      opacity:0.45;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .step-group.active{
+      opacity:1;
+    }
+
+    .step-group.active .step-box{
+      fill:#eff6ff;
+      stroke:#60a5fa;
+    }
+
+    .step-group.done{
+      opacity:1;
+    }
+
+    .step-group.done .step-box{
+      fill:#f0fdf4;
+      stroke:#4ade80;
+    }
+
+    .flow-line{
+      fill:none;
+      stroke:#cbd5e1;
+      stroke-width:4;
+      stroke-linecap:round;
+    }
+
+    .flow-progress{
+      fill:none;
+      stroke:#2563eb;
+      stroke-width:5;
+      stroke-linecap:round;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      filter: drop-shadow(0 0 2px rgba(37,99,235,.35));
+    }
+
+    .pulse-dot{
+      fill:#2563eb;
+      opacity:0;
+      filter: drop-shadow(0 0 4px rgba(37,99,235,.5));
+    }
+
+    .step-note{
+      opacity:0;
+      transform: translateY(6px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .step-note.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    .notes-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 4px 12px 14px;
+    }
+
+    .note-card{
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--muted);
+      min-height:72px;
+      opacity:.55;
+      transition: all .3s ease;
+    }
+
+    .note-card strong{
+      display:block;
+      color:var(--text);
+      margin-bottom:3px;
+      font-size:13px;
+    }
+
+    .note-card.active{
+      opacity:1;
+      border-color:#93c5fd;
+      background:#f8fbff;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+    }
+
+    .results-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
     .footer{
       margin-top: 28px;
       padding-top: 16px;
@@ -166,6 +338,18 @@
       justify-content:space-between;
       gap: 10px;
       flex-wrap:wrap;
+    }
+
+    @media (max-width: 760px){
+      .notes-grid{
+        grid-template-columns: 1fr;
+      }
+      h1{
+        font-size: 26px;
+      }
+      .claim{
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -180,7 +364,6 @@
         <strong>Mohammad Khoshnazar</strong> · <strong>Andrew Melnik</strong>
       </div>
 
-      <!-- Optional: add affiliations like SayPlan (edit/remove as you want) -->
       <div class="affil">
         University of Bremen · Institute of Artificial Intelligence
       </div>
@@ -190,99 +373,202 @@
         <a href="#" target="_blank" rel="noopener">Paper</a>
         <a href="#" target="_blank" rel="noopener">Code</a>
         <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
       </div>
 
-      <!-- Optional pinned line (edit/remove) -->
-      <div class="pin"></div>
+      <div class="pin">📌 ICRA 2026</div>
 
       <div class="claim">
         ENACT studies control under imperfect future supervision via Future-Experience Conditioning (FEC):
         DT-guided mask-free video diffusion futures + a future-conditioned Streaming Flow Policy robust to temporal misalignment.
       </div>
 
-      
       <div class="video" style="margin-top:16px;">
         <video controls playsinline autoplay muted loop preload="metadata">
           <source src="open_drawe_best.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div class="vmeta">
+          Open Drawer: <code>open_drawe_best.mp4</code>
         </div>
       </div>
     </header>
 
     <h2 id="abstract">Abstract</h2>
-    <!-- PAPER-VERBATIM ABSTRACT (you pasted this; kept the same) -->
     <p>
       Robotic manipulation policies are typically reactive (conditioning only on recent observations) or depend on explicit planning and state estimation. Many household tasks, however, rely on anticipating near-future events such as contact timing and articulated motion. We study <em>control under imperfect future supervision</em>: policies are trained with a future signal available from demonstrations, but at inference time we don't have access to ground-truth information so the future data must be provided by a generative model and may be time-shifted or slightly mismatched. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a learning formulation that conditions closed-loop control on a compact latent representation of a short-horizon <em>executable</em> visual future while explicitly training for temporal misalignment. We instantiate FEC with (i) a robot-free digital-twin (DT) articulation rollout that specifies target object motion, (ii) a mask-free video diffusion model (VDM) that inpaints the robot into the DT video to produce a task-consistent future clip without requiring segmentation at inference, and (iii) a Streaming Flow Policy (SFP) that consumes recent observations and an aligned, temporally-binned future latent. We evaluated our framework on Robocasa and Calvin benchmark to prove its capability on different scene and environment.(To make sure) Experiments evaluate FEC on long-horizon manipulation and quantify robustness to future timing mismatch as well as the train and test swap from ground-truth futures to generated futures.
     </p>
 
     <h2 id="approach">Approach</h2>
 
-    <!-- Main overview figure (like SayPlan: one big image near top of Approach) -->
     <div class="figure">
       <img src="img/main2.png" alt="ENACT overview" />
       <div class="figcap">
-        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → policy conditioning (robust to temporal shift).
+        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → future-conditioned policy robust to temporal shift.
       </div>
     </div>
 
-    <!-- SayPlan-style: short motivation paragraph + named subsections -->
     <p>
-      We study <em>control under imperfect future supervision</em>, where the future used during policy training (from demonstrations) differs from the future available at deployment (generated) and may be temporally misaligned.
-      ENACT produces a short-horizon <em>future experience</em> clip and conditions a closed-loop policy on a compact latent representation of that future while explicitly training for temporal mismatch.
+      We study <em>control under imperfect future supervision</em>, where the future used during policy training differs from the future available at deployment and may be temporally misaligned. ENACT produces a short-horizon future experience clip and conditions a closed-loop controller on a compact latent representation of that future while explicitly training for temporal mismatch.
     </p>
 
-    <h3>Digital Twin (DT) rollout (robot-free)</h3>
+    <h3>Digital Twin (DT) rollout</h3>
     <p>
-      We obtain the future clip by rolling out a robot-free digital twin (DT) for the intended object motion. The DT video constrains the correct articulation dynamics and camera viewpoint without requiring robot kinematics.
+      ENACT first generates a robot-free digital twin rollout that specifies the intended object motion and articulation trajectory. This transparent future constrains what should happen in the scene without requiring robot kinematics.
     </p>
 
-    <h3>Mask-free video diffusion model (VDM) for robot inpainting</h3>
+    <h3>Mask-free robot inpainting with video diffusion</h3>
     <p>
-      A mask-free video diffusion model inpaints the robot into the DT rollout to produce a task-consistent future clip without requiring robot segmentation at inference time.
+      A mask-free video diffusion model then inpaints the robot into the DT rollout to produce a task-consistent future clip. This makes the future visually executable while avoiding robot segmentation at inference time.
     </p>
 
-    <h3>Future-Experience Conditioning (FEC) tokens (temporal bins + projector)</h3>
+    <h3>Future-Experience Conditioning (FEC)</h3>
     <p>
-      We encode the future clip into per-frame embeddings, select a short future window, compress it into coarse temporal bins, and project it to a fixed-dimensional conditioning vector.
-      During policy training, we apply temporal shift augmentation to make the controller robust to imperfect / time-shifted future supervision.
+      The generated future is encoded into per-frame embeddings, compressed into temporal bins, and projected to a fixed-dimensional future latent. During training, temporal shift augmentation is applied so the policy remains robust when the future is slightly early, late, shorter, or longer than the true execution.
     </p>
 
     <h3>Future-conditioned Streaming Flow Policy (SFP)</h3>
     <p>
-      The policy consumes recent observations together with the binned future latent and outputs continuous actions. We report ablations that swap the future source at test time (ground-truth vs generated) and quantify robustness to timing mismatch.
+      The policy consumes recent observations together with the future latent and produces continuous actions in closed loop. This enables controlled comparisons between no-future, ground-truth future, and generated future conditioning.
     </p>
 
-    <!-- Your requested editable text spot -->
-    <p style="color:#475569;">
-    </p>
+    <div class="anim-wrap">
+      <div class="anim-head">
+        <h3>Step-by-step ENACT pipeline</h3>
+        <p>
+          This animated diagram shows how the future signal is built and how it reaches the policy during execution.
+        </p>
+      </div>
+
+      <div class="anim-inner">
+        <svg class="pipeline-svg" viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" aria-label="Animated ENACT pipeline">
+          <!-- base flow -->
+          <path class="flow-line" d="M120 110 L295 110 L295 110 L470 110 L470 110 L645 110 L645 110 L820 110 L820 110 L980 110" />
+          <path id="flowProgress" class="flow-progress" d="M120 110 L295 110 L295 110 L470 110 L470 110 L645 110 L645 110 L820 110 L820 110 L980 110" />
+          <circle id="pulseDot" class="pulse-dot" cx="120" cy="110" r="9" />
+
+          <!-- step 1 -->
+          <g id="step1" class="step-group">
+            <rect class="step-box" x="35" y="50" width="170" height="120" rx="18"/>
+            <text class="step-icon" x="62" y="98">📝</text>
+            <text class="step-label" x="100" y="95">Command + Obs</text>
+            <text class="step-sub" x="100" y="118">current RGB + task text</text>
+            <text class="step-sub" x="100" y="138">input at time t</text>
+          </g>
+
+          <!-- step 2 -->
+          <g id="step2" class="step-group">
+            <rect class="step-box" x="230" y="50" width="170" height="120" rx="18"/>
+            <text class="step-icon" x="257" y="98">🧠</text>
+            <text class="step-label" x="295" y="95">Reasoner</text>
+            <text class="step-sub" x="295" y="118">target object / motion</text>
+            <text class="step-sub" x="295" y="138">goal specification</text>
+          </g>
+
+          <!-- step 3 -->
+          <g id="step3" class="step-group">
+            <rect class="step-box" x="425" y="50" width="170" height="120" rx="18"/>
+            <text class="step-icon" x="452" y="98">🪟</text>
+            <text class="step-label" x="490" y="95">DT Rollout</text>
+            <text class="step-sub" x="490" y="118">robot-free transparent</text>
+            <text class="step-sub" x="490" y="138">future articulation clip</text>
+          </g>
+
+          <!-- step 4 -->
+          <g id="step4" class="step-group">
+            <rect class="step-box" x="620" y="50" width="170" height="120" rx="18"/>
+            <text class="step-icon" x="646" y="98">🎬</text>
+            <text class="step-label" x="685" y="95">Mask-free VDM</text>
+            <text class="step-sub" x="685" y="118">robot inpainting</text>
+            <text class="step-sub" x="685" y="138">future experience clip</text>
+          </g>
+
+          <!-- step 5 -->
+          <g id="step5" class="step-group">
+            <rect class="step-box" x="815" y="50" width="170" height="120" rx="18"/>
+            <text class="step-icon" x="842" y="98">📦</text>
+            <text class="step-label" x="880" y="95">FEC Tokens</text>
+            <text class="step-sub" x="880" y="118">encode + temporal bins</text>
+            <text class="step-sub" x="880" y="138">project to future latent</text>
+          </g>
+
+          <!-- branch down to policy -->
+          <path class="flow-line" d="M900 170 L900 220 L550 220 L550 265" />
+          <path id="flowProgress2" class="flow-progress" d="M900 170 L900 220 L550 220 L550 265" />
+          <circle id="pulseDot2" class="pulse-dot" cx="900" cy="170" r="8" />
+
+          <!-- policy block -->
+          <g id="step6" class="step-group">
+            <rect class="step-box" x="410" y="265" width="280" height="135" rx="20"/>
+            <text class="step-icon" x="438" y="320">🤖</text>
+            <text class="step-label" x="480" y="315">Streaming Flow Policy</text>
+            <text class="step-sub" x="480" y="338">recent observations + future latent</text>
+            <text class="step-sub" x="480" y="358">robust to temporal misalignment</text>
+            <text class="step-sub" x="480" y="378">continuous closed-loop actions</text>
+          </g>
+
+          <!-- output arrow -->
+          <path class="flow-line" d="M690 332 L830 332 L940 332" />
+          <path id="flowProgress3" class="flow-progress" d="M690 332 L830 332 L940 332" />
+          <circle id="pulseDot3" class="pulse-dot" cx="690" cy="332" r="8" />
+
+          <!-- output block -->
+          <g id="step7" class="step-group">
+            <rect class="step-box" x="940" y="272" width="125" height="120" rx="18"/>
+            <text class="step-icon" x="970" y="320">✅</text>
+            <text class="step-label" x="1002" y="315">Action</text>
+            <text class="step-sub" x="1002" y="338">execute</text>
+            <text class="step-sub" x="1002" y="358">observe again</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="notes-grid">
+        <div id="note1" class="note-card">
+          <strong>1. Build the future</strong>
+          The command and current observation define the intended object motion, then DT rollout generates a robot-free future.
+        </div>
+        <div id="note2" class="note-card">
+          <strong>2. Make it executable</strong>
+          Mask-free VDM inpaints the robot into the transparent DT video to create a task-consistent future clip.
+        </div>
+        <div id="note3" class="note-card">
+          <strong>3. Compress the future</strong>
+          The future clip is encoded, pooled into temporal bins, and projected into a compact future-conditioning vector.
+        </div>
+        <div id="note4" class="note-card">
+          <strong>4. Use it in closed loop</strong>
+          SFP consumes recent observations and the future latent to generate actions robustly even under timing mismatch.
+        </div>
+      </div>
+    </div>
 
     <h2 id="results">Results</h2>
 
-    <!-- Keep your other videos here (stacked, simple) -->
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="demo30_close_drawer.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-    </div>
+    <div class="results-grid">
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="demo30_close_drawer.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Close Drawer: <code>demo30_close_drawer.mp4</code></div>
+      </div>
 
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="push_into_drawer_best.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-    </div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="push_into_drawer_best.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Push Into Drawer: <code>push_into_drawer_best.mp4</code></div>
+      </div>
 
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="turn_on_lightbulb.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-     
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="turn_on_lightbulb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Turn On Lightbulb: <code>turn_on_lightbulb.mp4</code></div>
+      </div>
     </div>
 
     <h2 id="bibtex">BibTeX</h2>
@@ -297,11 +583,109 @@
       <div>© <span id="y"></span> ENACT</div>
       <div>Built with GitHub Pages</div>
     </div>
-
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    function setActive(idsDone, idActive){
+      const all = ["step1","step2","step3","step4","step5","step6","step7"];
+      all.forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.remove("active","done");
+        if(idsDone.includes(id)) el.classList.add("done");
+        if(id === idActive) el.classList.add("active");
+      });
+    }
+
+    function setNotes(activeIndex){
+      ["note1","note2","note3","note4"].forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if(idx < activeIndex) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+    }
+
+    function animatePath(pathId, dotId, duration, onDone){
+      const path = document.getElementById(pathId);
+      const dot = document.getElementById(dotId);
+      const len = path.getTotalLength();
+
+      path.style.transition = "none";
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      dot.style.opacity = 1;
+
+      let start = null;
+
+      function frame(ts){
+        if(!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+        const draw = len * (1 - p);
+        path.style.strokeDashoffset = draw;
+
+        const pt = path.getPointAtLength(len * p);
+        dot.setAttribute("cx", pt.x);
+        dot.setAttribute("cy", pt.y);
+
+        if(p < 1){
+          requestAnimationFrame(frame);
+        } else {
+          if(onDone) onDone();
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function resetPaths(){
+      ["flowProgress","flowProgress2","flowProgress3"].forEach(id => {
+        const path = document.getElementById(id);
+        const len = path.getTotalLength();
+        path.style.transition = "none";
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+      });
+      ["pulseDot","pulseDot2","pulseDot3"].forEach(id => {
+        document.getElementById(id).style.opacity = 0;
+      });
+    }
+
+    function runPipeline(){
+      resetPaths();
+      setActive([], "step1");
+      setNotes(0);
+
+      setTimeout(() => {
+        setActive(["step1"], "step2");
+      }, 700);
+
+      animatePath("flowProgress", "pulseDot", 4200, () => {
+        setActive(["step1","step2","step3","step4","step5"], "step5");
+        setNotes(3);
+
+        setTimeout(() => {
+          setActive(["step1","step2","step3","step4","step5"], "step6");
+          animatePath("flowProgress2", "pulseDot2", 1700, () => {
+            setNotes(4);
+            setActive(["step1","step2","step3","step4","step5","step6"], "step6");
+
+            setTimeout(() => {
+              setActive(["step1","step2","step3","step4","step5","step6"], "step7");
+              animatePath("flowProgress3", "pulseDot3", 1200, () => {
+                setActive(["step1","step2","step3","step4","step5","step6","step7"], "step7");
+                setTimeout(runPipeline, 1800);
+              });
+            }, 650);
+          });
+        }, 500);
+      });
+
+      setTimeout(() => setNotes(1), 1200);
+      setTimeout(() => setNotes(2), 2800);
+    }
+
+    runPipeline();
   </script>
 </body>
 </html>
