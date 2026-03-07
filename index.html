@@ -30,7 +30,7 @@
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 34px 18px 70px;
     }
@@ -168,20 +168,21 @@
     .anim-wrap{
       margin: 18px 0 10px;
       border:1px solid var(--line);
-      border-radius:16px;
+      border-radius:18px;
       background:linear-gradient(180deg,#fbfdff 0%, #f8fbff 100%);
       overflow:hidden;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.05);
     }
 
     .anim-head{
-      padding: 14px 16px 10px;
+      padding: 16px 18px 12px;
       border-bottom:1px solid var(--line);
       background:#fff;
     }
 
     .anim-head h3{
       margin:0 0 4px;
-      font-size:17px;
+      font-size:18px;
     }
 
     .anim-head p{
@@ -191,7 +192,7 @@
     }
 
     .anim-inner{
-      padding: 14px 10px 8px;
+      padding: 18px 14px 14px;
     }
 
     .pipeline-svg{
@@ -204,25 +205,28 @@
       fill:#ffffff;
       stroke:#cbd5e1;
       stroke-width:2;
-      rx:18;
-      ry:18;
+      rx:20;
+      ry:20;
       filter: drop-shadow(0 6px 18px rgba(15,23,42,0.06));
       transition: fill .25s ease, stroke .25s ease;
     }
 
     .step-label{
-      font-size:16px;
+      font-size:15px;
       font-weight:700;
       fill:#0f172a;
+      text-anchor:middle;
     }
 
     .step-sub{
-      font-size:12px;
+      font-size:11.5px;
       fill:#64748b;
+      text-anchor:middle;
     }
 
     .step-icon{
-      font-size:24px;
+      font-size:23px;
+      text-anchor:middle;
     }
 
     .step-group{
@@ -250,7 +254,7 @@
       stroke:#dbeafe;
       stroke-width:4;
       stroke-linecap:round;
-      opacity:.9;
+      opacity:.95;
     }
 
     .flow-progress{
@@ -271,28 +275,31 @@
 
     .notes-grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 4px 12px 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 6px 14px 16px;
     }
 
     .note-card{
       border:1px solid var(--line);
-      border-radius:12px;
+      border-radius:14px;
       background:#fff;
-      padding:10px 12px;
-      font-size:13px;
+      padding:12px 12px;
+      font-size:12.5px;
       color:var(--muted);
-      min-height:72px;
-      opacity:.5;
+      min-height:90px;
+      opacity:.52;
       transition: all .3s ease;
+      line-height:1.45;
+      overflow-wrap:anywhere;
     }
 
     .note-card strong{
       display:block;
       color:var(--text);
-      margin-bottom:3px;
-      font-size:13px;
+      margin-bottom:4px;
+      font-size:12.5px;
+      line-height:1.35;
     }
 
     .note-card.active{
@@ -300,6 +307,7 @@
       border-color:#93c5fd;
       background:#f8fbff;
       box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+      transform: translateY(-1px);
     }
 
     .results-grid{
@@ -318,6 +326,12 @@
       justify-content:space-between;
       gap: 10px;
       flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .notes-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 760px){
@@ -375,6 +389,109 @@
       Robotic manipulation policies are typically reactive (conditioning only on recent observations) or depend on explicit planning and state estimation. Many household tasks, however, rely on anticipating near-future events such as contact timing and articulated motion. We study <em>control under imperfect future supervision</em>: policies are trained with a future signal available from demonstrations, but at inference time we don't have access to ground-truth information so the future data must be provided by a generative model and may be time-shifted or slightly mismatched. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a learning formulation that conditions closed-loop control on a compact latent representation of a short-horizon <em>executable</em> visual future while explicitly training for temporal misalignment. We instantiate FEC with (i) a robot-free digital-twin (DT) articulation rollout that specifies target object motion, (ii) a mask-free video diffusion model (VDM) that inpaints the robot into the DT video to produce a task-consistent future clip without requiring segmentation at inference, and (iii) a Streaming Flow Policy (SFP) that consumes recent observations and an aligned, temporally-binned future latent. We evaluated our framework on Robocasa and Calvin benchmark to prove its capability on different scene and environment.(To make sure) Experiments evaluate FEC on long-horizon manipulation and quantify robustness to future timing mismatch as well as the train and test swap from ground-truth futures to generated futures.
     </p>
 
+    <div class="anim-wrap">
+      <div class="anim-head">
+        <h3>Step-by-step ENACT pipeline</h3>
+        <p>
+          The arrow moves segment by segment, and each stage appears when the signal reaches it.
+        </p>
+      </div>
+
+      <div class="anim-inner">
+        <svg class="pipeline-svg" viewBox="0 0 1120 330" xmlns="http://www.w3.org/2000/svg" aria-label="Animated ENACT pipeline">
+          <!-- blocks -->
+          <g id="step1" class="step-group visible active">
+            <rect class="step-box" x="20" y="60" width="190" height="120" />
+            <text class="step-icon" x="115" y="96">📝</text>
+            <text class="step-label" x="115" y="121">Command + Obs</text>
+            <text class="step-sub" x="115" y="143">current RGB + task text</text>
+            <text class="step-sub" x="115" y="160">input at time t</text>
+          </g>
+
+          <g id="step2" class="step-group">
+            <rect class="step-box" x="240" y="60" width="190" height="120" />
+            <text class="step-icon" x="335" y="96">🧠</text>
+            <text class="step-label" x="335" y="121">Reasoner</text>
+            <text class="step-sub" x="335" y="143">target object / motion</text>
+            <text class="step-sub" x="335" y="160">goal specification</text>
+          </g>
+
+          <g id="step3" class="step-group">
+            <rect class="step-box" x="460" y="60" width="190" height="120" />
+            <text class="step-icon" x="555" y="96">🪟</text>
+            <text class="step-label" x="555" y="121">DT Rollout</text>
+            <text class="step-sub" x="555" y="143">robot-free transparent</text>
+            <text class="step-sub" x="555" y="160">future articulation clip</text>
+          </g>
+
+          <g id="step4" class="step-group">
+            <rect class="step-box" x="680" y="60" width="190" height="120" />
+            <text class="step-icon" x="775" y="96">🎬</text>
+            <text class="step-label" x="775" y="121">Mask-free VDM</text>
+            <text class="step-sub" x="775" y="143">robot inpainting</text>
+            <text class="step-sub" x="775" y="160">future experience clip</text>
+          </g>
+
+          <g id="step5" class="step-group">
+            <rect class="step-box" x="900" y="60" width="190" height="120" />
+            <text class="step-icon" x="995" y="96">📦</text>
+            <text class="step-label" x="995" y="121">FEC Tokens</text>
+            <text class="step-sub" x="995" y="143">encode + temporal bins</text>
+            <text class="step-sub" x="995" y="160">project to future latent</text>
+          </g>
+
+          <g id="step6" class="step-group">
+            <rect class="step-box" x="360" y="225" width="400" height="88" />
+            <text class="step-icon" x="430" y="260">🤖</text>
+            <text class="step-label" x="570" y="257">Streaming Flow Policy</text>
+            <text class="step-sub" x="570" y="279">recent observations + future latent + closed-loop action generation</text>
+          </g>
+
+          <!-- top row segment bases -->
+          <path id="seg12-base" class="flow-line" d="M210 120 L240 120" />
+          <path id="seg23-base" class="flow-line" d="M430 120 L460 120" />
+          <path id="seg34-base" class="flow-line" d="M650 120 L680 120" />
+          <path id="seg45-base" class="flow-line" d="M870 120 L900 120" />
+
+          <!-- down segment bases -->
+          <path id="seg56a-base" class="flow-line" d="M995 180 L995 210" />
+          <path id="seg56b-base" class="flow-line" d="M995 210 L570 210" />
+          <path id="seg56c-base" class="flow-line" d="M570 210 L570 225" />
+
+          <!-- progress -->
+          <path id="seg12" class="flow-progress" d="M210 120 L240 120" />
+          <path id="seg23" class="flow-progress" d="M430 120 L460 120" />
+          <path id="seg34" class="flow-progress" d="M650 120 L680 120" />
+          <path id="seg45" class="flow-progress" d="M870 120 L900 120" />
+          <path id="seg56a" class="flow-progress" d="M995 180 L995 210" />
+          <path id="seg56b" class="flow-progress" d="M995 210 L570 210" />
+          <path id="seg56c" class="flow-progress" d="M570 210 L570 225" />
+
+          <!-- moving dot -->
+          <circle id="pulseDot" class="pulse-dot" cx="210" cy="120" r="8" />
+        </svg>
+      </div>
+
+      <div class="notes-grid">
+        <div id="note1" class="note-card active">
+          <strong>1. Build the future</strong>
+          The command and current observation define the intended object motion, then DT rollout generates a robot-free future.
+        </div>
+        <div id="note2" class="note-card">
+          <strong>2. Make it executable</strong>
+          Mask-free VDM inpaints the robot into the transparent DT video to create a task-consistent future clip.
+        </div>
+        <div id="note3" class="note-card">
+          <strong>3. Compress the future</strong>
+          The future clip is encoded, pooled into temporal bins, and projected into a compact future-conditioning vector.
+        </div>
+        <div id="note4" class="note-card">
+          <strong>4. Use it in closed loop</strong>
+          SFP consumes recent observations and the future latent to generate actions robustly even under timing mismatch.
+        </div>
+      </div>
+    </div>
+
     <h2 id="approach">Approach</h2>
 
     <div class="figure">
@@ -407,118 +524,6 @@
     <p>
       The policy consumes recent observations together with the future latent and produces continuous actions in closed loop. This enables controlled comparisons between no-future, ground-truth future, and generated future conditioning.
     </p>
-
-    <div class="anim-wrap">
-      <div class="anim-head">
-        <h3>Step-by-step ENACT pipeline</h3>
-        <p>
-        </p>
-      </div>
-
-      <div class="anim-inner">
-        <svg class="pipeline-svg" viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" aria-label="Animated ENACT pipeline">
-          <!-- BLOCKS -->
-          <g id="step1" class="step-group visible active">
-            <rect class="step-box" x="35" y="50" width="170" height="120" />
-            <text class="step-icon" x="62" y="98">📝</text>
-            <text class="step-label" x="100" y="95">Command + Obs</text>
-            <text class="step-sub" x="100" y="118">current RGB + task text</text>
-            <text class="step-sub" x="100" y="138">input at time t</text>
-          </g>
-
-          <g id="step2" class="step-group">
-            <rect class="step-box" x="230" y="50" width="170" height="120" />
-            <text class="step-icon" x="257" y="98">🧠</text>
-            <text class="step-label" x="295" y="95">Reasoner</text>
-            <text class="step-sub" x="295" y="118">target object / motion</text>
-            <text class="step-sub" x="295" y="138">goal specification</text>
-          </g>
-
-          <g id="step3" class="step-group">
-            <rect class="step-box" x="425" y="50" width="170" height="120" />
-            <text class="step-icon" x="452" y="98">🪟</text>
-            <text class="step-label" x="490" y="95">DT Rollout</text>
-            <text class="step-sub" x="490" y="118">robot-free transparent</text>
-            <text class="step-sub" x="490" y="138">future articulation clip</text>
-          </g>
-
-          <g id="step4" class="step-group">
-            <rect class="step-box" x="620" y="50" width="170" height="120" />
-            <text class="step-icon" x="646" y="98">🎬</text>
-            <text class="step-label" x="685" y="95">Mask-free VDM</text>
-            <text class="step-sub" x="685" y="118">robot inpainting</text>
-            <text class="step-sub" x="685" y="138">future experience clip</text>
-          </g>
-
-          <g id="step5" class="step-group">
-            <rect class="step-box" x="815" y="50" width="170" height="120" />
-            <text class="step-icon" x="842" y="98">📦</text>
-            <text class="step-label" x="880" y="95">FEC Tokens</text>
-            <text class="step-sub" x="880" y="118">encode + temporal bins</text>
-            <text class="step-sub" x="880" y="138">project to future latent</text>
-          </g>
-
-          <g id="step6" class="step-group">
-            <rect class="step-box" x="410" y="265" width="280" height="135" />
-            <text class="step-icon" x="438" y="320">🤖</text>
-            <text class="step-label" x="480" y="315">Streaming Flow Policy</text>
-            <text class="step-sub" x="480" y="338">recent observations + future latent</text>
-            <text class="step-sub" x="480" y="358">robust to temporal misalignment</text>
-            <text class="step-sub" x="480" y="378">continuous closed-loop actions</text>
-          </g>
-
-          <g id="step7" class="step-group">
-            <rect class="step-box" x="940" y="272" width="125" height="120" />
-            <text class="step-icon" x="970" y="320">✅</text>
-            <text class="step-label" x="1002" y="315">Action</text>
-            <text class="step-sub" x="1002" y="338">execute</text>
-            <text class="step-sub" x="1002" y="358">observe again</text>
-          </g>
-
-          <!-- SEGMENT LINES -->
-          <path id="seg12-base" class="flow-line" d="M205 110 L230 110" />
-          <path id="seg23-base" class="flow-line" d="M400 110 L425 110" />
-          <path id="seg34-base" class="flow-line" d="M595 110 L620 110" />
-          <path id="seg45-base" class="flow-line" d="M790 110 L815 110" />
-          <path id="seg56a-base" class="flow-line" d="M900 170 L900 220" />
-          <path id="seg56b-base" class="flow-line" d="M900 220 L550 220" />
-          <path id="seg56c-base" class="flow-line" d="M550 220 L550 265" />
-          <path id="seg67-base" class="flow-line" d="M690 332 L940 332" />
-
-          <!-- SEGMENT PROGRESS -->
-          <path id="seg12" class="flow-progress" d="M205 110 L230 110" />
-          <path id="seg23" class="flow-progress" d="M400 110 L425 110" />
-          <path id="seg34" class="flow-progress" d="M595 110 L620 110" />
-          <path id="seg45" class="flow-progress" d="M790 110 L815 110" />
-          <path id="seg56a" class="flow-progress" d="M900 170 L900 220" />
-          <path id="seg56b" class="flow-progress" d="M900 220 L550 220" />
-          <path id="seg56c" class="flow-progress" d="M550 220 L550 265" />
-          <path id="seg67" class="flow-progress" d="M690 332 L940 332" />
-
-          <!-- MOVING DOT -->
-          <circle id="pulseDot" class="pulse-dot" cx="205" cy="110" r="8" />
-        </svg>
-      </div>
-
-      <div class="notes-grid">
-        <div id="note1" class="note-card active">
-          <strong>1. Build the future</strong>
-          The command and current observation define the intended object motion, then DT rollout generates a robot-free future.
-        </div>
-        <div id="note2" class="note-card">
-          <strong>2. Make it executable</strong>
-          Mask-free VDM inpaints the robot into the transparent DT video to create a task-consistent future clip.
-        </div>
-        <div id="note3" class="note-card">
-          <strong>3. Compress the future</strong>
-          The future clip is encoded, pooled into temporal bins, and projected into a compact future-conditioning vector.
-        </div>
-        <div id="note4" class="note-card">
-          <strong>4. Use it in closed loop</strong>
-          SFP consumes recent observations and the future latent to generate actions robustly even under timing mismatch.
-        </div>
-      </div>
-    </div>
 
     <h2 id="results">Results</h2>
 
@@ -565,17 +570,15 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    const allSteps = ["step1","step2","step3","step4","step5","step6","step7"];
+    const allSteps = ["step1","step2","step3","step4","step5","step6"];
     const allNotes = ["note1","note2","note3","note4"];
-    const allSegs = ["seg12","seg23","seg34","seg45","seg56a","seg56b","seg56c","seg67"];
+    const allSegs = ["seg12","seg23","seg34","seg45","seg56a","seg56b","seg56c"];
 
     function resetPipeline() {
       allSteps.forEach((id, idx) => {
         const el = document.getElementById(id);
         el.classList.remove("visible", "active", "done");
-        if (idx === 0) {
-          el.classList.add("visible", "active");
-        }
+        if (idx === 0) el.classList.add("visible", "active");
       });
 
       allNotes.forEach((id, idx) => {
@@ -591,8 +594,8 @@
 
       const dot = document.getElementById("pulseDot");
       dot.style.opacity = 0;
-      dot.setAttribute("cx", "205");
-      dot.setAttribute("cy", "110");
+      dot.setAttribute("cx", "210");
+      dot.setAttribute("cy", "120");
     }
 
     function setStepVisible(id) {
@@ -624,7 +627,6 @@
       const len = path.getTotalLength();
 
       setStepActive(fromStepId);
-
       path.style.strokeDasharray = len;
       path.style.strokeDashoffset = len;
       dot.style.opacity = 1;
@@ -644,9 +646,11 @@
         if (p < 1) {
           requestAnimationFrame(frame);
         } else {
-          setStepDone(fromStepId);
-          setStepVisible(toStepId);
-          setStepActive(toStepId);
+          if (toStepId !== fromStepId) {
+            setStepDone(fromStepId);
+            setStepVisible(toStepId);
+            setStepActive(toStepId);
+          }
           if (callback) callback();
         }
       }
@@ -663,8 +667,6 @@
 
           setTimeout(() => {
             animateSegment("seg23", "step2", "step3", 700, () => {
-              setNotes(1);
-
               setTimeout(() => {
                 animateSegment("seg34", "step3", "step4", 700, () => {
                   setNotes(2);
@@ -674,16 +676,11 @@
                       setNotes(3);
 
                       setTimeout(() => {
-                        animateSegment("seg56a", "step5", "step5", 350, () => {
-                          animateSegment("seg56b", "step5", "step5", 1100, () => {
-                            animateSegment("seg56c", "step5", "step6", 350, () => {
+                        animateSegment("seg56a", "step5", "step5", 320, () => {
+                          animateSegment("seg56b", "step5", "step5", 1000, () => {
+                            animateSegment("seg56c", "step5", "step6", 280, () => {
                               setNotes(4);
-
-                              setTimeout(() => {
-                                animateSegment("seg67", "step6", "step7", 950, () => {
-                                  setTimeout(runPipeline, 1800);
-                                });
-                              }, 500);
+                              setTimeout(runPipeline, 1800);
                             });
                           });
                         });
