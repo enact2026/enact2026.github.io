@@ -435,7 +435,7 @@
           <g id="step6" class="step-group">
             <rect class="step-box" x="360" y="225" width="400" height="88" />
             <text class="step-icon" x="430" y="260">🤖</text>
-            <text class="step-label" x="570" y="257">Streaming Flow Policy</text>
+            <text class="step-label" x="570" y="257">Policy</text>
             <text class="step-sub" x="570" y="279">recent observations + future latent + closed-loop action generation</text>
           </g>
 
