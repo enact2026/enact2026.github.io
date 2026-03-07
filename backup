@@ -15,44 +15,50 @@
       --accent:#2563eb;
       --soft:#f8fafc;
     }
+
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      line-height:1.55;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.6;
     }
+
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 34px 18px 70px;
     }
 
-    /* SayPlan-like: centered header, minimal styling */
     header{
       text-align:center;
       margin-bottom: 18px;
     }
+
     h1{
       margin: 0 0 10px;
       font-size: 30px;
       font-weight: 800;
       letter-spacing: .2px;
     }
+
     .authors{
       margin: 0 0 6px;
       color: var(--muted);
       font-size: 15px;
     }
+
     .affil{
       margin: 0 0 8px;
       color: var(--muted);
       font-size: 14px;
     }
+
     .links{
       margin: 8px 0 10px;
       display:flex;
@@ -62,6 +68,7 @@
       font-size: 14px;
       color: var(--muted);
     }
+
     .links a{ font-weight: 600; }
 
     .pin{
@@ -78,7 +85,6 @@
       color: var(--text);
     }
 
-    /* Sections (SayPlan style: just headings + content) */
     h2{
       margin: 26px 0 10px;
       padding-top: 18px;
@@ -86,16 +92,15 @@
       font-size: 22px;
       font-weight: 800;
     }
+
     h3{
       margin: 14px 0 8px;
       font-size: 16px;
       font-weight: 800;
     }
-    p{ margin: 10px 0; }
-    ul{ margin: 8px 0 0 18px; }
-    li{ margin: 6px 0; }
 
-    /* Figure */
+    p{ margin: 10px 0; }
+
     .figure{
       margin: 10px 0 8px;
       border: 1px solid var(--line);
@@ -103,11 +108,13 @@
       overflow:hidden;
       background: var(--soft);
     }
+
     .figure img{
       width:100%;
       height:auto;
       display:block;
     }
+
     .figcap{
       padding: 10px 12px;
       font-size: 13px;
@@ -116,7 +123,6 @@
       background: #fff;
     }
 
-    /* Video block (keep simple, but reliable) */
     .video{
       margin: 14px 0 0;
       border: 1px solid var(--line);
@@ -124,12 +130,14 @@
       overflow:hidden;
       background: var(--soft);
     }
+
     .video video{
       width:100%;
       height:auto;
       display:block;
       background: var(--soft);
     }
+
     .vmeta{
       padding: 10px 12px;
       font-size: 13px;
@@ -137,6 +145,7 @@
       border-top: 1px solid var(--line);
       background:#fff;
     }
+
     code{
       background:#eef2ff;
       border:1px solid #e0e7ff;
@@ -156,6 +165,150 @@
       line-height: 1.45;
     }
 
+    .anim-wrap{
+      margin: 18px 0 10px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:linear-gradient(180deg,#fbfdff 0%, #f8fbff 100%);
+      overflow:hidden;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.05);
+    }
+
+    .anim-head{
+      padding: 16px 18px 12px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+
+    .anim-head h3{
+      margin:0 0 4px;
+      font-size:18px;
+    }
+
+    .anim-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .anim-inner{
+      padding: 18px 14px 14px;
+    }
+
+    .pipeline-svg{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .step-box{
+      fill:#ffffff;
+      stroke:#cbd5e1;
+      stroke-width:2;
+      rx:20;
+      ry:20;
+      filter: drop-shadow(0 6px 18px rgba(15,23,42,0.06));
+      transition: fill .25s ease, stroke .25s ease;
+    }
+
+    .step-label{
+      font-size:15px;
+      font-weight:700;
+      fill:#0f172a;
+      text-anchor:middle;
+    }
+
+    .step-sub{
+      font-size:11.5px;
+      fill:#64748b;
+      text-anchor:middle;
+    }
+
+    .step-icon{
+      font-size:23px;
+      text-anchor:middle;
+    }
+
+    .step-group{
+      opacity:0;
+      transition: opacity .35s ease;
+      pointer-events:none;
+    }
+
+    .step-group.visible{
+      opacity:1;
+    }
+
+    .step-group.active .step-box{
+      fill:#eff6ff;
+      stroke:#60a5fa;
+    }
+
+    .step-group.done .step-box{
+      fill:#f0fdf4;
+      stroke:#4ade80;
+    }
+
+    /* no pre-visible connector lines */
+    .flow-progress{
+      fill:none;
+      stroke:#2563eb;
+      stroke-width:5;
+      stroke-linecap:round;
+      stroke-dasharray:1000;
+      stroke-dashoffset:1000;
+      filter: drop-shadow(0 0 2px rgba(37,99,235,.35));
+    }
+
+    .pulse-dot{
+      fill:#2563eb;
+      opacity:0;
+      filter: drop-shadow(0 0 5px rgba(37,99,235,.5));
+    }
+
+    .notes-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 6px 14px 16px;
+    }
+
+    .note-card{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      padding:12px 12px;
+      font-size:12.5px;
+      color:var(--muted);
+      min-height:90px;
+      opacity:.52;
+      transition: all .3s ease;
+      line-height:1.45;
+      overflow-wrap:anywhere;
+    }
+
+    .note-card strong{
+      display:block;
+      color:var(--text);
+      margin-bottom:4px;
+      font-size:12.5px;
+      line-height:1.35;
+    }
+
+    .note-card.active{
+      opacity:1;
+      border-color:#93c5fd;
+      background:#f8fbff;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+      transform: translateY(-1px);
+    }
+
+    .results-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
     .footer{
       margin-top: 28px;
       padding-top: 16px;
@@ -166,6 +319,20 @@
       justify-content:space-between;
       gap: 10px;
       flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .notes-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px){
+      .notes-grid{
+        grid-template-columns: 1fr;
+      }
+      h1{ font-size:26px; }
+      .claim{ font-size:16px; }
     }
   </style>
 </head>
@@ -180,7 +347,6 @@
         <strong>Mohammad Khoshnazar</strong> · <strong>Andrew Melnik</strong>
       </div>
 
-      <!-- Optional: add affiliations like SayPlan (edit/remove as you want) -->
       <div class="affil">
         University of Bremen · Institute of Artificial Intelligence
       </div>
@@ -190,99 +356,181 @@
         <a href="#" target="_blank" rel="noopener">Paper</a>
         <a href="#" target="_blank" rel="noopener">Code</a>
         <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
       </div>
 
-      <!-- Optional pinned line (edit/remove) -->
-      <div class="pin"></div>
+      <div class="pin">📌 ICRA 2026</div>
 
       <div class="claim">
         ENACT studies control under imperfect future supervision via Future-Experience Conditioning (FEC):
         DT-guided mask-free video diffusion futures + a future-conditioned Streaming Flow Policy robust to temporal misalignment.
       </div>
 
-      
       <div class="video" style="margin-top:16px;">
         <video controls playsinline autoplay muted loop preload="metadata">
           <source src="open_drawe_best.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div class="vmeta">
+          Open Drawer: <code>open_drawe_best.mp4</code>
         </div>
       </div>
     </header>
 
     <h2 id="abstract">Abstract</h2>
-    <!-- PAPER-VERBATIM ABSTRACT (you pasted this; kept the same) -->
     <p>
       Robotic manipulation policies are typically reactive (conditioning only on recent observations) or depend on explicit planning and state estimation. Many household tasks, however, rely on anticipating near-future events such as contact timing and articulated motion. We study <em>control under imperfect future supervision</em>: policies are trained with a future signal available from demonstrations, but at inference time we don't have access to ground-truth information so the future data must be provided by a generative model and may be time-shifted or slightly mismatched. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a learning formulation that conditions closed-loop control on a compact latent representation of a short-horizon <em>executable</em> visual future while explicitly training for temporal misalignment. We instantiate FEC with (i) a robot-free digital-twin (DT) articulation rollout that specifies target object motion, (ii) a mask-free video diffusion model (VDM) that inpaints the robot into the DT video to produce a task-consistent future clip without requiring segmentation at inference, and (iii) a Streaming Flow Policy (SFP) that consumes recent observations and an aligned, temporally-binned future latent. We evaluated our framework on Robocasa and Calvin benchmark to prove its capability on different scene and environment.(To make sure) Experiments evaluate FEC on long-horizon manipulation and quantify robustness to future timing mismatch as well as the train and test swap from ground-truth futures to generated futures.
     </p>
 
-    <h2 id="approach">Approach</h2>
+    <div class="anim-wrap">
+      <div class="anim-head">
+        <h3>Step-by-step ENACT pipeline</h3>
+        <p>
+          The arrow moves segment by segment, and each stage appears when the signal reaches it.
+        </p>
+      </div>
 
-    <!-- Main overview figure (like SayPlan: one big image near top of Approach) -->
-    <div class="figure">
-      <img src="img/main2.png" alt="ENACT overview" />
-      <div class="figcap">
-        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → policy conditioning (robust to temporal shift).
+      <div class="anim-inner">
+        <svg class="pipeline-svg" viewBox="0 0 1120 330" xmlns="http://www.w3.org/2000/svg" aria-label="Animated ENACT pipeline">
+          <g id="step1" class="step-group visible active">
+            <rect class="step-box" x="20" y="60" width="190" height="120" />
+            <text class="step-icon" x="115" y="96">📝</text>
+            <text class="step-label" x="115" y="121">Command + Obs</text>
+            <text class="step-sub" x="115" y="143">current RGB + task text</text>
+            <text class="step-sub" x="115" y="160">input at time t</text>
+          </g>
+
+          <g id="step2" class="step-group">
+            <rect class="step-box" x="240" y="60" width="190" height="120" />
+            <text class="step-icon" x="335" y="96">🧠</text>
+            <text class="step-label" x="335" y="121">Reasoner</text>
+            <text class="step-sub" x="335" y="143">target object / motion</text>
+            <text class="step-sub" x="335" y="160">goal specification</text>
+          </g>
+
+          <g id="step3" class="step-group">
+            <rect class="step-box" x="460" y="60" width="190" height="120" />
+            <text class="step-icon" x="555" y="96">🪟</text>
+            <text class="step-label" x="555" y="121">DT Rollout</text>
+            <text class="step-sub" x="555" y="143">robot-free transparent</text>
+            <text class="step-sub" x="555" y="160">future articulation clip</text>
+          </g>
+
+          <g id="step4" class="step-group">
+            <rect class="step-box" x="680" y="60" width="190" height="120" />
+            <text class="step-icon" x="775" y="96">🎬</text>
+            <text class="step-label" x="775" y="121">Mask-free VDM</text>
+            <text class="step-sub" x="775" y="143">robot inpainting</text>
+            <text class="step-sub" x="775" y="160">future experience clip</text>
+          </g>
+
+          <g id="step5" class="step-group">
+            <rect class="step-box" x="900" y="60" width="190" height="120" />
+            <text class="step-icon" x="995" y="96">📦</text>
+            <text class="step-label" x="995" y="121">FEC Tokens</text>
+            <text class="step-sub" x="995" y="143">encode + temporal bins</text>
+            <text class="step-sub" x="995" y="160">project to future latent</text>
+          </g>
+
+          <g id="step6" class="step-group">
+            <rect class="step-box" x="360" y="225" width="400" height="88" />
+            <text class="step-icon" x="430" y="260">🤖</text>
+            <text class="step-label" x="570" y="257">Streaming Flow Policy</text>
+            <text class="step-sub" x="570" y="279">recent observations + future latent + closed-loop action generation</text>
+          </g>
+
+          <!-- only blue traces, no light preview lines -->
+          <path id="seg12" class="flow-progress" d="M210 120 L240 120" />
+          <path id="seg23" class="flow-progress" d="M430 120 L460 120" />
+          <path id="seg34" class="flow-progress" d="M650 120 L680 120" />
+          <path id="seg45" class="flow-progress" d="M870 120 L900 120" />
+          <path id="seg56a" class="flow-progress" d="M995 180 L995 210" />
+          <path id="seg56b" class="flow-progress" d="M995 210 L570 210" />
+          <path id="seg56c" class="flow-progress" d="M570 210 L570 225" />
+
+          <circle id="pulseDot" class="pulse-dot" cx="210" cy="120" r="8" />
+        </svg>
+      </div>
+
+      <div class="notes-grid">
+        <div id="note1" class="note-card active">
+          <strong>1. Build the future</strong>
+          The command and current observation define the intended object motion, then DT rollout generates a robot-free future.
+        </div>
+        <div id="note2" class="note-card">
+          <strong>2. Make it executable</strong>
+          Mask-free VDM inpaints the robot into the transparent DT video to create a task-consistent future clip.
+        </div>
+        <div id="note3" class="note-card">
+          <strong>3. Compress the future</strong>
+          The future clip is encoded, pooled into temporal bins, and projected into a compact future-conditioning vector.
+        </div>
+        <div id="note4" class="note-card">
+          <strong>4. Use it in closed loop</strong>
+          SFP consumes recent observations and the future latent to generate actions robustly even under timing mismatch.
+        </div>
       </div>
     </div>
 
-    <!-- SayPlan-style: short motivation paragraph + named subsections -->
+    <h2 id="approach">Approach</h2>
+
+    <div class="figure">
+      <img src="img/main2.png" alt="ENACT overview" />
+      <div class="figcap">
+        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → future-conditioned policy robust to temporal shift.
+      </div>
+    </div>
+
     <p>
-      We study <em>control under imperfect future supervision</em>, where the future used during policy training (from demonstrations) differs from the future available at deployment (generated) and may be temporally misaligned.
-      ENACT produces a short-horizon <em>future experience</em> clip and conditions a closed-loop policy on a compact latent representation of that future while explicitly training for temporal mismatch.
+      We study <em>control under imperfect future supervision</em>, where the future used during policy training differs from the future available at deployment and may be temporally misaligned. ENACT produces a short-horizon future experience clip and conditions a closed-loop controller on a compact latent representation of that future while explicitly training for temporal mismatch.
     </p>
 
-    <h3>Digital Twin (DT) rollout (robot-free)</h3>
+    <h3>Digital Twin (DT) rollout</h3>
     <p>
-      We obtain the future clip by rolling out a robot-free digital twin (DT) for the intended object motion. The DT video constrains the correct articulation dynamics and camera viewpoint without requiring robot kinematics.
+      ENACT first generates a robot-free digital twin rollout that specifies the intended object motion and articulation trajectory. This transparent future constrains what should happen in the scene without requiring robot kinematics.
     </p>
 
-    <h3>Mask-free video diffusion model (VDM) for robot inpainting</h3>
+    <h3>Mask-free robot inpainting with video diffusion</h3>
     <p>
-      A mask-free video diffusion model inpaints the robot into the DT rollout to produce a task-consistent future clip without requiring robot segmentation at inference time.
+      A mask-free video diffusion model then inpaints the robot into the DT rollout to produce a task-consistent future clip. This makes the future visually executable while avoiding robot segmentation at inference time.
     </p>
 
-    <h3>Future-Experience Conditioning (FEC) tokens (temporal bins + projector)</h3>
+    <h3>Future-Experience Conditioning (FEC)</h3>
     <p>
-      We encode the future clip into per-frame embeddings, select a short future window, compress it into coarse temporal bins, and project it to a fixed-dimensional conditioning vector.
-      During policy training, we apply temporal shift augmentation to make the controller robust to imperfect / time-shifted future supervision.
+      The generated future is encoded into per-frame embeddings, compressed into temporal bins, and projected to a fixed-dimensional future latent. During training, temporal shift augmentation is applied so the policy remains robust when the future is slightly early, late, shorter, or longer than the true execution.
     </p>
 
     <h3>Future-conditioned Streaming Flow Policy (SFP)</h3>
     <p>
-      The policy consumes recent observations together with the binned future latent and outputs continuous actions. We report ablations that swap the future source at test time (ground-truth vs generated) and quantify robustness to timing mismatch.
-    </p>
-
-    <!-- Your requested editable text spot -->
-    <p style="color:#475569;">
+      The policy consumes recent observations together with the future latent and produces continuous actions in closed loop. This enables controlled comparisons between no-future, ground-truth future, and generated future conditioning.
     </p>
 
     <h2 id="results">Results</h2>
 
-    <!-- Keep your other videos here (stacked, simple) -->
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="demo30_close_drawer.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-    </div>
+    <div class="results-grid">
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="demo30_close_drawer.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Close Drawer: <code>demo30_close_drawer.mp4</code></div>
+      </div>
 
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="push_into_drawer_best.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-    </div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="push_into_drawer_best.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Push Into Drawer: <code>push_into_drawer_best.mp4</code></div>
+      </div>
 
-    <div class="video">
-      <video controls playsinline autoplay muted loop preload="metadata">
-        <source src="turn_on_lightbulb.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-     
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="turn_on_lightbulb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Turn On Lightbulb: <code>turn_on_lightbulb.mp4</code></div>
+      </div>
     </div>
 
     <h2 id="bibtex">BibTeX</h2>
@@ -297,11 +545,137 @@
       <div>© <span id="y"></span> ENACT</div>
       <div>Built with GitHub Pages</div>
     </div>
-
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    const allSteps = ["step1","step2","step3","step4","step5","step6"];
+    const allNotes = ["note1","note2","note3","note4"];
+    const allSegs = ["seg12","seg23","seg34","seg45","seg56a","seg56b","seg56c"];
+
+    function resetPipeline() {
+      allSteps.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        el.classList.remove("visible", "active", "done");
+        if (idx === 0) el.classList.add("visible", "active");
+      });
+
+      allNotes.forEach((id, idx) => {
+        document.getElementById(id).classList.toggle("active", idx === 0);
+      });
+
+      allSegs.forEach(id => {
+        const path = document.getElementById(id);
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+      });
+
+      const dot = document.getElementById("pulseDot");
+      dot.style.opacity = 0;
+      dot.setAttribute("cx", "210");
+      dot.setAttribute("cy", "120");
+    }
+
+    function setStepVisible(id) {
+      document.getElementById(id).classList.add("visible");
+    }
+
+    function setStepActive(id) {
+      allSteps.forEach(stepId => {
+        document.getElementById(stepId).classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+    }
+
+    function setStepDone(id) {
+      const el = document.getElementById(id);
+      el.classList.remove("active");
+      el.classList.add("done");
+    }
+
+    function setNotes(activeCount) {
+      allNotes.forEach((id, idx) => {
+        document.getElementById(id).classList.toggle("active", idx < activeCount);
+      });
+    }
+
+    function animateSegment(pathId, fromStepId, toStepId, duration, callback) {
+      const path = document.getElementById(pathId);
+      const dot = document.getElementById("pulseDot");
+      const len = path.getTotalLength();
+
+      setStepActive(fromStepId);
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      dot.style.opacity = 1;
+
+      let start = null;
+
+      function frame(ts) {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+
+        path.style.strokeDashoffset = len * (1 - p);
+
+        const pt = path.getPointAtLength(len * p);
+        dot.setAttribute("cx", pt.x);
+        dot.setAttribute("cy", pt.y);
+
+        if (p < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          if (toStepId !== fromStepId) {
+            setStepDone(fromStepId);
+            setStepVisible(toStepId);
+            setStepActive(toStepId);
+          }
+          if (callback) callback();
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function runPipeline() {
+      resetPipeline();
+
+      setTimeout(() => {
+        animateSegment("seg12", "step1", "step2", 700, () => {
+          setNotes(1);
+
+          setTimeout(() => {
+            animateSegment("seg23", "step2", "step3", 700, () => {
+              setTimeout(() => {
+                animateSegment("seg34", "step3", "step4", 700, () => {
+                  setNotes(2);
+
+                  setTimeout(() => {
+                    animateSegment("seg45", "step4", "step5", 700, () => {
+                      setNotes(3);
+
+                      setTimeout(() => {
+                        animateSegment("seg56a", "step5", "step5", 320, () => {
+                          animateSegment("seg56b", "step5", "step5", 1000, () => {
+                            animateSegment("seg56c", "step5", "step6", 280, () => {
+                              setNotes(4);
+                              setTimeout(runPipeline, 1800);
+                            });
+                          });
+                        });
+                      }, 350);
+                    });
+                  }, 350);
+                });
+              }, 350);
+            });
+          }, 350);
+        });
+      }, 450);
+    }
+
+    runPipeline();
   </script>
 </body>
 </html>
