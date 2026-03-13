@@ -379,7 +379,7 @@
 
     <h2 id="abstract">Abstract</h2>
     <p>
-      Robotic manipulation policies are typically reactive (conditioning only on recent observations) or depend on explicit planning and state estimation. Many household tasks, however, rely on anticipating near-future events such as contact timing and articulated motion. We study <em>control under imperfect future supervision</em>: policies are trained with a future signal available from demonstrations, but at inference time we don't have access to ground-truth information so the future data must be provided by a generative model and may be time-shifted or slightly mismatched. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a learning formulation that conditions closed-loop control on a compact latent representation of a short-horizon <em>executable</em> visual future while explicitly training for temporal misalignment. We instantiate FEC with (i) a robot-free digital-twin (DT) articulation rollout that specifies target object motion, (ii) a mask-free video diffusion model (VDM) that inpaints the robot into the DT video to produce a task-consistent future clip without requiring segmentation at inference, and (iii) a Streaming Flow Policy (SFP) that consumes recent observations and an aligned, temporally-binned future latent. We evaluated our framework on Robocasa and Calvin benchmark to prove its capability on different scene and environment. Experiments evaluate FEC on long-horizon manipulation and quantify robustness to future timing mismatch as well as the train and test swap from ground-truth futures to generated futures.
+      Robotic manipulation policies are typically reactive, conditioning only on recent observations, or rely on explicit planning and state estimation. Many household tasks, however, depend on anticipating near-future events such as contact timing and articulated object motion. We study <em>control under imperfect future supervision</em>, where policies are trained with future signals available from demonstrations, but at inference time those ground-truth futures are unavailable and must be replaced by generated futures that may be temporally shifted or imperfect. We propose <strong>Future-Experience Conditioning (FEC)</strong>, a formulation that conditions a closed-loop policy on a compact latent representation of a short-horizon executable visual future while remaining robust to future-source mismatch. ENACT instantiates this idea using (i) a SemDT-grounded robot-free digital-twin rollout that specifies target object motion, (ii) a mask-free video diffusion model that inpaints the robot into the DT rollout to produce a task-consistent future clip without requiring segmentation at inference time, and (iii) a future-conditioned policy that consumes recent observations together with compact future latents. We evaluate ENACT on RoboCasa and CALVIN across multiple manipulation tasks and compare policies under different future conditions, including no future, ground-truth future, generated future, and intentionally wrong future. Results show that informative generated futures can improve closed-loop manipulation, while performance under wrong futures confirms that gains come from meaningful future information rather than additional conditioning alone.
     </p>
 
     <div class="anim-wrap">
@@ -481,27 +481,27 @@
     </div> -->
 
     <p>
-      We study <em>control under imperfect future supervision</em>, where the future used during policy training differs from the future available at deployment and may be temporally misaligned. ENACT produces a short-horizon future experience clip and conditions a closed-loop controller on a compact latent representation of that future while explicitly training for temporal mismatch.
+      We study <em>control under imperfect future supervision</em>, where the future signal used during training is not the same as the future available at deployment. In ENACT, the system first builds a short-horizon future experience clip and then conditions a closed-loop policy on a compact latent representation of that future. This design allows the controller to benefit from future information while remaining grounded in current observations.
     </p>
 
-    <h3>Digital Twin (DT) rollout</h3>
+    <h3>Semantic grounding and digital-twin rollout</h3>
     <p>
-      ENACT first generates a robot-free digital twin rollout that specifies the intended object motion and articulation trajectory. This transparent future constrains what should happen in the scene without requiring robot kinematics.
+      Given a task command and current observation, ENACT uses SemDT to convert the instruction into a structured task specification, such as the manipulated object, interaction part, and motion type. This specification drives a robot-free digital-twin rollout that generates a transparent future showing the intended object motion and articulation trajectory. The DT rollout defines what should happen in the scene without requiring the twin to synthesize robot motion directly.
     </p>
 
     <h3>Mask-free robot inpainting with video diffusion</h3>
     <p>
-      A mask-free video diffusion model then inpaints the robot into the DT rollout to produce a task-consistent future clip. This makes the future visually executable while avoiding robot segmentation at inference time.
+      The transparent DT rollout is then passed to a mask-free video diffusion model, which inpaints the robot into the future sequence to produce a task-consistent executable future clip. The model is conditioned on the robot-free rollout together with an initial image, and it does not require robot masks or segmentation at inference time. This makes the generated future more suitable for deployment while keeping the object motion constrained by the DT rollout.
     </p>
 
     <h3>Future-Experience Conditioning (FEC)</h3>
     <p>
-      The generated future is encoded into per-frame embeddings, compressed into temporal bins, and projected to a fixed-dimensional future latent. During training, temporal shift augmentation is applied so the policy remains robust when the future is slightly early, late, shorter, or longer than the true execution.
+      The generated future clip is encoded into per-frame embeddings, compressed into temporal bins, and projected into a fixed-dimensional future latent. This compact representation provides a stable interface between generated future video and policy learning. Because the framework is designed for imperfect future supervision, the policy is evaluated under different future sources, including ground-truth futures, generated futures, and mismatched futures, to test whether it truly uses meaningful future information.
     </p>
 
-    <h3>Future-conditioned Streaming Flow Policy (SFP)</h3>
+    <h3>Future-conditioned policy</h3>
     <p>
-      The policy consumes recent observations together with the future latent and produces continuous actions in closed loop. This enables controlled comparisons between no-future, ground-truth future, and generated future conditioning.
+      The policy receives recent observations together with the compact future latent and outputs continuous actions in closed loop. ENACT is not tied to a single policy architecture; instead, it provides a general future-conditioning framework that can be used to compare different policy learning approaches under the same future-conditioning setup. This makes the focus of the method the future signal and its role in control, rather than one specific controller design.
     </p>
 
     <h2 id="results">Results</h2>
