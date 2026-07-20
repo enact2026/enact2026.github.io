@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LLM-Guided Future Hypotheses for Horizon-Aware Exploration in Multi-Step Robot Manipulation</title>
-  <meta name="description" content="A simulation study of future-conditioned robot manipulation under imperfect future supervision." />
+  <meta name="description" content="Future-conditioned robot manipulation evaluated in RoboCasa, CALVIN, and on a real Franka Panda under imperfect future supervision." />
 
   <style>
     :root{
@@ -249,7 +249,6 @@
       stroke:#4ade80;
     }
 
-    /* no pre-visible connector lines */
     .flow-progress{
       fill:none;
       stroke:#2563eb;
@@ -268,7 +267,7 @@
 
     .notes-grid{
       display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
       padding: 6px 14px 16px;
     }
@@ -352,18 +351,18 @@
       </div>
 
       <div class="links">
-  <a href="#" target="_blank" rel="noopener">Paper</a>
-  <a href="https://enact2026.github.io/" target="_blank" rel="noopener">Project</a>
-  <a href="https://github.com/mkhoshnam/enact" target="_blank" rel="noopener">Code</a>
-  <a href="#results">Videos</a>
-  <a href="#results">Results</a>
-  <a href="#bibtex">BibTeX</a>
-</div>
+        <a href="https://arxiv.org/abs/2605.29864" target="_blank" rel="noopener">Paper</a>
+        <a href="https://enact2026.github.io/" target="_blank" rel="noopener">Project</a>
+        <a href="https://github.com/mkhoshnam/enact" target="_blank" rel="noopener">Code</a>
+        <a href="#results">Videos</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </div>
 
       <div class="pin"></div>
 
       <div class="claim">
-        We study whether short-horizon future videos can help robot manipulation policies during execution and RL fine-tuning when the future available at test time is generated, imperfect, or temporally shifted.
+        We study how short-horizon future videos improve robot manipulation during closed-loop execution and RL fine-tuning, evaluating the framework extensively in simulation and validating generated-future-conditioned policies on a real Franka Panda.
       </div>
 
       <div class="video" style="margin-top:16px;">
@@ -371,22 +370,29 @@
           <source src="closedrawer_sync_web.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div class="vmeta">
-          
-        </div>
+        <div class="vmeta">Simulation · Future-conditioned manipulation policy</div>
       </div>
+
+      <div class="video" style="margin-top:14px;">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="open_kettle_three_panel_web.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Real robot · Open kettle · Generated future | current observation | Franka execution</div>
+      </div>
+
+      
     </header>
 
     <h2 id="abstract">Abstract</h2>
     <p>
-      Multi-step robot manipulation requires acting under uncertainty about how the scene will evolve. Tasks such as opening drawers, moving sliders, turning switches, and pushing objects into containers depend on contact timing, articulated object motion, and delayed task progress. We study whether short-horizon future videos can provide useful conditioning signals for closed-loop robot control and reinforcement-learning fine-tuning. We formulate this setting as <strong>Future-Experience Conditioning (FEC)</strong>, where a policy receives recent observations together with a compact latent representation of a short future video. During training, this future signal can be taken from demonstrations. At inference time, ground-truth futures are not available, so we evaluate generated futures and intentionally mismatched futures to study the effect of imperfect future supervision. Our experiments are conducted in simulation on RoboCasa and CALVIN across multiple manipulation tasks. We compare behavior cloning, behavior cloning with RL fine-tuning, and a future-conditioned policy baseline under no-future, ground-truth future, generated future, and wrong-future conditions. The results show that task-consistent future conditioning can improve policy execution and RL adaptation in our simulated setting, while mismatched futures can strongly hurt performance. We do not claim real-world transfer or end-to-end digital-twin construction from raw sensory input; instead, this work focuses on the role of short-horizon visual future signals as structured priors for manipulation policies under controlled future-source mismatch.
+      Multi-step robot manipulation requires acting under uncertainty about how the scene will evolve. Tasks such as opening drawers, moving sliders, turning switches, and interacting with articulated objects depend on contact timing, object motion, and delayed task progress. We study whether short-horizon future videos can provide useful conditioning signals for closed-loop robot control and reinforcement-learning fine-tuning. We formulate this setting as <strong>Future-Experience Conditioning (FEC)</strong>, where a policy receives recent observations together with a compact latent representation of a short future video. During training, this future signal can be taken from demonstrations. At inference time, ground-truth futures are unavailable, so we evaluate generated futures and intentionally mismatched futures to study robustness to imperfect future supervision. We conduct extensive simulation experiments on RoboCasa and CALVIN and validate generated-future-conditioned execution on a real Franka Panda across opening a kettle, closing a kettle, and closing a microwave. We compare behavior cloning, behavior cloning with RL fine-tuning, and a future-conditioned policy baseline under no-future, ground-truth-future, generated-future, and wrong-future conditions. The results show that task-consistent future conditioning improves policy execution and RL adaptation, while mismatched futures reveal the importance of reliability-aware conditioning. Together, the simulation benchmarks and real-robot demonstrations show that short-horizon visual futures provide practical structured priors for manipulation policies under imperfect future predictions.
     </p>
 
     <div class="anim-wrap">
       <div class="anim-head">
         <h3>Step-by-step future-conditioning pipeline</h3>
-        <p>
-        </p>
+        <p></p>
       </div>
 
       <div class="anim-inner">
@@ -432,20 +438,28 @@
           </g>
 
           <g id="step6" class="step-group">
-            <rect class="step-box" x="360" y="225" width="400" height="88" />
-            <text class="step-icon" x="430" y="260">🤖</text>
-            <text class="step-label" x="570" y="257">Policy</text>
-            <text class="step-sub" x="570" y="279">recent observations + future latent + closed-loop action generation</text>
+            <rect class="step-box" x="310" y="225" width="250" height="88" />
+            <text class="step-icon" x="365" y="260">🛡️</text>
+            <text class="step-label" x="435" y="257">RAFC Gate</text>
+            <text class="step-sub" x="435" y="279">null + shifted futures</text>
+            <text class="step-sub" x="435" y="294">reduce timing sensitivity</text>
           </g>
 
-          <!-- only blue traces, no light preview lines -->
+          <g id="step7" class="step-group">
+            <rect class="step-box" x="600" y="225" width="400" height="88" />
+            <text class="step-icon" x="670" y="260">🤖</text>
+            <text class="step-label" x="800" y="257">Policy</text>
+            <text class="step-sub" x="800" y="279">recent observations + reliable future latent + closed-loop action</text>
+          </g>
+
           <path id="seg12" class="flow-progress" d="M210 120 L240 120" />
           <path id="seg23" class="flow-progress" d="M430 120 L460 120" />
           <path id="seg34" class="flow-progress" d="M650 120 L680 120" />
           <path id="seg45" class="flow-progress" d="M870 120 L900 120" />
           <path id="seg56a" class="flow-progress" d="M995 180 L995 210" />
-          <path id="seg56b" class="flow-progress" d="M995 210 L570 210" />
-          <path id="seg56c" class="flow-progress" d="M570 210 L570 225" />
+          <path id="seg56b" class="flow-progress" d="M995 210 L435 210" />
+          <path id="seg56c" class="flow-progress" d="M435 210 L435 225" />
+          <path id="seg67" class="flow-progress" d="M560 269 L600 269" />
 
           <circle id="pulseDot" class="pulse-dot" cx="210" cy="120" r="8" />
         </svg>
@@ -465,20 +479,17 @@
           The future video is encoded, pooled into temporal bins, and projected into a compact future-conditioning vector.
         </div>
         <div id="note4" class="note-card">
-          <strong>4. Use it in closed loop</strong>
-          The policy uses recent observations and the future latent to generate actions during closed-loop execution.
+          <strong>4. Reliability-aware mixing</strong>
+          RAFC compares the null future with shifted future candidates and gates how much the policy should trust the future signal.
+        </div>
+        <div id="note5" class="note-card">
+          <strong>5. Use it in closed loop</strong>
+          The policy uses recent observations and the reliable future latent to generate actions during closed-loop execution.
         </div>
       </div>
     </div>
 
     <h2 id="approach">Approach</h2>
-
-    <!-- <div class="figure">
-      <img src="img/main2.png" alt="ENACT overview" />
-      <div class="figcap">
-        ENACT as an instantiation of <strong>Future-Experience Conditioning (FEC)</strong>: DT rollout → mask-free diffusion robot inpainting → future tokens → future-conditioned policy robust to temporal shift.
-      </div>
-    </div> -->
 
     <p>
       We study <em>control under imperfect future supervision</em>, where the future signal used during training is not identical to the future available at inference time. The policy is trained and evaluated with a compact representation of a short future video, while the source of that future can vary. This lets us compare no-future conditioning, ground-truth futures, generated futures, and intentionally wrong futures under the same control interface.
@@ -486,12 +497,12 @@
 
     <h3>Task grounding and future construction</h3>
     <p>
-      Given a task command and current scene information, the system creates a structured description of the manipulation goal, including the target object, relevant interaction part, and desired state transition. This description is used to construct a short-horizon visual future that represents the intended evolution of the task. In the current paper, this is studied in simulation and is not presented as a full real-world scene reconstruction system.
+      Given a task command and current scene information, the system creates a structured description of the manipulation goal, including the target object, relevant interaction part, and desired state transition. This description is used to construct a short-horizon visual future that represents the intended evolution of the task. The same future-conditioning interface is evaluated in simulation and used for closed-loop execution on real Franka Panda manipulation tasks.
     </p>
 
     <h3>Generated future signal</h3>
     <p>
-      At inference time, ground-truth future frames from demonstrations are not available. We therefore evaluate generated future clips as imperfect test-time conditioning signals. These clips are intended to provide useful cues about upcoming object motion and interaction timing, but they can also contain errors or temporal mismatch. This makes them useful for studying how policies behave under realistic future-source mismatch.
+      At inference time, ground-truth future frames from demonstrations are not available. We therefore use generated future clips as practical test-time conditioning signals in both simulation and real-robot experiments. These clips provide cues about upcoming object motion and interaction timing while naturally containing visual and temporal imperfections. Our three-panel real-robot videos show the generated future, the current camera observation, and the resulting Franka execution side by side.
     </p>
 
     <h3>Future-Experience Conditioning (FEC)</h3>
@@ -499,45 +510,67 @@
       The future clip is encoded into per-frame embeddings, compressed into temporal bins, and projected into a fixed-dimensional future latent. This compact representation provides a common interface between future video signals and policy learning. We also test temporally shifted futures to evaluate how sensitive the policy is to timing mismatch in the future signal.
     </p>
 
+    <h3>Reliability-Aware Future Conditioning (RAFC)</h3>
+    <p>
+      RAFC adds a lightweight reliability gate over a null future and temporally shifted future candidates. It is designed to reduce sensitivity to partially correct but misaligned generated futures, rather than to solve completely wrong future hypotheses.
+    </p>
+
     <h3>Future-conditioned policy</h3>
     <p>
-      The policy receives recent observations together with the compact future latent and outputs continuous actions in closed loop. We evaluate behavior cloning, behavior cloning with reinforcement-learning fine-tuning, and a future-conditioned comparison baseline. The focus of the study is not a claim about one universal controller, but the effect of future conditioning on execution and adaptation under controlled future conditions.
+      The policy receives recent observations together with the compact future latent and outputs continuous actions in closed loop. We evaluate behavior cloning, behavior cloning with reinforcement-learning fine-tuning, and a future-conditioned comparison baseline. Simulation benchmarks measure execution quality, adaptation, temporal robustness, and sensitivity to incorrect futures, while real-robot experiments demonstrate generated-future-conditioned control on physical hardware.
     </p>
 
     <h2 id="results">Results</h2>
 
     <div class="results-grid">
-  <div class="video">
-    <video controls playsinline autoplay muted loop preload="metadata">
-      <source src="open_drawe_best.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="close_microwave_three_panel_web.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Real robot · Close microwave · Generated future | current observation | Franka execution</div>
+      </div>
 
-  <div class="video">
-    <video controls playsinline autoplay muted loop preload="metadata">
-      <source src="opne_single_door_web.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="open_drawe_best.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">RoboCasa · Open drawer · Future-conditioned policy execution</div>
+      </div>
 
-   <div class="video">
-    <video controls playsinline autoplay muted loop preload="metadata">
-      <source src="move_slider_left_h264.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="opne_single_door_web.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">RoboCasa · Open single door · Future-conditioned policy execution</div>
+      </div>
 
-  <div class="video">
-    <video controls playsinline autoplay muted loop preload="metadata">
-      <source src="push_into_drawer_best.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</div>
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="move_slider_left_h264.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">CALVIN · Move slider left · Future-conditioned policy execution</div>
+      </div>
 
-      
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="close_kettle_three_panel_web.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">Real robot · Close kettle · Generated future | current observation | Franka execution</div>
+      </div>
+
+      <div class="video">
+        <video controls playsinline autoplay muted loop preload="metadata">
+          <source src="push_into_drawer_best.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="vmeta">CALVIN · Push object into drawer · Future-conditioned policy execution</div>
+      </div>
+    </div>
 
     <h2 id="bibtex">BibTeX</h2>
     <pre>@misc{khoshnazar2026futurehypotheses,
@@ -556,9 +589,9 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    const allSteps = ["step1","step2","step3","step4","step5","step6"];
-    const allNotes = ["note1","note2","note3","note4"];
-    const allSegs = ["seg12","seg23","seg34","seg45","seg56a","seg56b","seg56c"];
+    const allSteps = ["step1","step2","step3","step4","step5","step6","step7"];
+    const allNotes = ["note1","note2","note3","note4","note5"];
+    const allSegs = ["seg12","seg23","seg34","seg45","seg56a","seg56b","seg56c","seg67"];
 
     function resetPipeline() {
       allSteps.forEach((id, idx) => {
@@ -666,7 +699,13 @@
                           animateSegment("seg56b", "step5", "step5", 1000, () => {
                             animateSegment("seg56c", "step5", "step6", 280, () => {
                               setNotes(4);
-                              setTimeout(runPipeline, 1800);
+
+                              setTimeout(() => {
+                                animateSegment("seg67", "step6", "step7", 650, () => {
+                                  setNotes(5);
+                                  setTimeout(runPipeline, 1800);
+                                });
+                              }, 350);
                             });
                           });
                         });
