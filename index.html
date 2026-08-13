@@ -365,6 +365,18 @@
         We study how short-horizon future videos improve robot manipulation during closed-loop execution and RL fine-tuning, evaluating the framework extensively in simulation and validating generated-future-conditioned policies on a real Franka Panda.
       </div>
 
+      <figure class="figure main-figure">
+  <img
+    src="Main-PipeLine.jpg"
+    alt="Overview of the ENACT pipeline: task reasoning, digital-twin rollout, video inpainting, and future-conditioned policy."
+  />
+  <figcaption class="figcap">
+    Overview of our pipeline. The system reasons about the task, predicts
+    digital-twin state transitions, generates a future video, and conditions
+    the robot policy on the predicted future.
+  </figcaption>
+</figure>
+
       <div class="video" style="margin-top:16px;">
         <video controls playsinline autoplay muted loop preload="metadata">
           <source src="closedrawer_sync_web.mp4" type="video/mp4" />
